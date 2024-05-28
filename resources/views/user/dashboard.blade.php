@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <a href="">
+                <a href="{{ route('customer.device.manage') }}">
                     <div class="card border-0 mb-2">
                         <div class="card-body">
                             <div class="row">

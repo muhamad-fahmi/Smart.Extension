@@ -194,9 +194,17 @@
                                 <i class="fa-solid fa-house-laptop"></i>
                             </div>
                             <div class="col-8 d-flex align-items-center">
-                                <p class="m-0">
-                                    {{ $device->name }}
-                                </p>
+                                <a href="{{ route('customer.device.show', $device->device->device_id) }}" class="text-decoration-none">
+                                    <div class="d-flex justify-content-left align-items-center">
+                                        <div class="d-flex flex-column">
+                                            <span class="text-truncate fw-bold">{{ $device->device->device_id }}</span>
+                                        </div>
+                                    </div>
+                                    <p class="m-0">
+                                        {{ $device->name }}
+                                    </p>
+                                </a>
+
                             </div>
                             <div class="col-2 d-flex justify-content-end align-items-center p-0">
                                 <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-icon-toggle">
