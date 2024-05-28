@@ -22,9 +22,21 @@
 
 <link href="{{ asset('cork/src/plugins/css/dark/apex/custom-apexcharts.css') }}" rel="stylesheet" type="text/css">
 
+<link rel="stylesheet" type="text/css" href="{{ asset('cork/src/assets/css/light/forms/switches.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('cork/src/assets/css/dark/forms/switches.css') }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
+
 <style>
     textarea.h-25 {
         height: 13rem !important;
+    }
+    .card {
+        font-family: "Share Tech", sans-serif;
+        font-weight: 400;
+        font-style: normal;
     }
 </style>
 @endpush
@@ -39,6 +51,79 @@
 
 @section('contents')
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card border-0 mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary"><i class="fa-solid fa-clock"></i></h1>
+                        </div>
+                        <div class="col-9 d-flex align-items-center">
+                            <h2 class="m-0"><strong id="clock">0</strong></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary"><i class="fa-solid fa-lightbulb"></i></h1>
+                        </div>
+                        <div class="col-9 d-flex align-items-center">
+                            <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-label-toggle show">
+                                <div class="input-checkbox">
+                                    <span class="switch-chk-label label-left">OFF</span>
+                                    <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-label" name="switch" onchange="this.checked ? this.closest('.inner-label-toggle').classList.add('show') : this.closest('.inner-label-toggle').classList.remove('show')" checked>
+                                    <span class="switch-chk-label label-right">ON</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary"><i class="fa-solid fa-temperature-three-quarters"></i></h1>
+                        </div>
+                        <div class="col-9">
+                            <p class="my-1">Temperatur</p>
+                            <h2 class="m-0"><strong id="temp_value">0</strong> °C</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card border-0 mb-2">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-3 d-flex align-items-center justify-content-center">
+                            <h1 class="m-0 text-primary"><i class="fa-solid fa-droplet"></i></h1>
+                        </div>
+                        <div class="col-9">
+                            <p class="my-1">Kelembaban</p>
+                            <h2 class="m-0"><strong id="hum_value">0</strong> % RH</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="row">
@@ -89,340 +174,249 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/mqttws31.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.1.0/paho-mqtt.min.js" integrity="sha512-Y5n0fbohPllOQ21fTwM/h9sQQ/1a1h5KhweGhu2zwD8lAoJnTgVa7NIrFa1bRDIMQHixtyuRV2ubIx+qWbGdDA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+
+
 
     {{-- <script src="{{ asset('cork/src/plugins/src/apex/custom-apexcharts.js') }}"></script> --}}
 
     <script>
 
-       // MQTT Connection Configuration
-       var mqttBroker = "{{ env('MQTT_HOST') }}";
-        var mqttPort = 8884;
-        var mqttTopicT = '{{ $device->device_id }}/sensor/dht22/t';
-        var mqttTopicH = '{{ $device->device_id }}/sensor/dht22/h';
-        var mqttUsername = "{{ env('MQTT_AUTH_USERNAME') }}";
-        var mqttPassword = "{{ env('MQTT_AUTH_PASSWORD') }}";
+        window.addEventListener("load", function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-        // Create a client instance
-        var clientId = 'client_' + new Date().getTime();
-        var client = new Paho.Client('wss://' + mqttBroker + ':' + mqttPort + '/mqtt', clientId);
+            $.LoadingOverlay('show');
+            // MQTT Connection Configuration
+            var mqttBroker = "{{ env('MQTT_HOST') }}";
+            var mqttPort = 8884;
+            var mqttTopicT = '{{ $device->device_id }}/sensor/dht22/t';
+            var mqttTopicH = '{{ $device->device_id }}/sensor/dht22/h';
+            var mqttUsername = "{{ env('MQTT_AUTH_USERNAME') }}";
+            var mqttPassword = "{{ env('MQTT_AUTH_PASSWORD') }}";
 
-        // Set callback handlers
-        client.onConnectionLost = onConnectionLost;
-        client.onMessageArrived = onMessageArrived;
+            // Create a client instance
+            var clientId = 'client_{{ $device->user_id }}';
+            var client = new Paho.Client('wss://' + mqttBroker + ':' + mqttPort + '/mqtt', clientId);
 
-        // Connect the client
-        client.connect({
-            onSuccess: onConnect,
-            userName: mqttUsername,
-            password: mqttPassword,
-            useSSL: true
+            // Set callback handlers
+            client.onConnectionLost = onConnectionLost;
+            client.onMessageArrived = onMessageArrived;
+
+            // client.username_pw_set(mqttUsername, mqttPassword)
+
+            // Connect the client
+            client.connect({
+                onSuccess: onConnect,
+                userName: mqttUsername,
+                password: mqttPassword,
+                useSSL: true
+            });
+
+            // Callback function executed when the client successfully connects
+            function onConnect() {
+                console.log("Connected to HiveMQ broker");
+                // Subscribe to MQTT topics
+                client.subscribe(mqttTopicT);
+                client.subscribe(mqttTopicH);
+                $.LoadingOverlay('hide');
+            }
+
+            // Callback function executed when the client loses its connection
+            function onConnectionLost(responseObject) {
+                if (responseObject && responseObject.errorCode !== undefined) {
+                    console.log("Connection lost with error code:", responseObject.errorCode);
+                    console.log("Error message:", responseObject.errorMessage);
+                } else {
+                    console.log("Connection lost with unknown error");
+                }
+            }
+
+            // Callback function executed when a message arrives
+
+            function onMessageArrived(message) {
+                if (message.destinationName === mqttTopicT) {
+                    console.log(`${message.destinationName} : ${message.payloadString}`);
+                    $('#temp_value').text(message.payloadString);
+                    updateChart('chartT', message.payloadString);
+                } else if (message.destinationName === mqttTopicH) {
+                    console.log(`${message.destinationName} : ${message.payloadString}`);
+                    $('#hum_value').text(message.payloadString);
+                    updateChart('chartH', message.payloadString);
+                }
+            }
+
+            // Chart Configuration
+            var optionsT = {
+                chart: {
+                    type: 'line',
+                    height: 350,
+                    animations: {
+                        enabled: false
+                    }
+                },
+                series: [{
+                    name: 'Temperature Data',
+                    data: []
+                }],
+                xaxis: {
+                    type: 'datetime',
+                    categories: []
+                }
+            };
+
+            var optionsH = {
+                chart: {
+                    type: 'line',
+                    height: 350,
+                    animations: {
+                        enabled: false
+                    }
+                },
+                series: [{
+                    name: 'Humidity Data',
+                    data: []
+                }],
+                xaxis: {
+                    type: 'datetime',
+                    categories: []
+                }
+            };
+
+            var chartT = new ApexCharts(document.querySelector("#chartT"), optionsT);
+            var chartH = new ApexCharts(document.querySelector("#chartH"), optionsH);
+
+            chartT.render();
+            chartH.render();
+
+
+            function getJakartaTime() {
+                var now = new Date();
+                var options = { timeZone: 'Asia/Jakarta', hour12: false };
+                var jakartaTime = now.toLocaleString('en-US', options);
+                var [date, time] = jakartaTime.split(', ');
+
+                var [month, day, year] = date.split('/');
+                var [hours, minutes, seconds] = time.split(':');
+
+                // Format day, month, and year with leading zeros if needed
+                day = day.padStart(2, '0');
+                month = month.padStart(2, '0');
+                year = year.padStart(4, '0');
+
+                // Combine all parts into the desired format
+                var formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+
+                return formattedDateTime;
+            }
+
+
+            var newDataT = [];
+            var newDataH = [];
+
+            var timestampT = [];
+            var timestampH = [];
+
+
+            // Update chart with new data
+            function updateChart(chartId, data) {
+                // Dapatkan timestamp saat ini dalam milidetik
+                var currentTimestamp = new Date().getTime();
+
+                // Dapatkan offset zona waktu Jakarta dari UTC dalam menit
+                var jakartaOffset = -420; // Jakarta UTC+7, offset dalam menit
+
+                // Dapatkan offset zona waktu lokal dari UTC dalam menit
+                var localOffset = new Date().getTimezoneOffset();
+
+                // Hitung timestamp di zona waktu Jakarta
+                var timestamp = moment.tz('Asia/Jakarta').valueOf();
+
+                if (chartId === 'chartT') {
+                    try {
+                        newDataT.push(parseFloat(data));
+                        timestampT.push(timestamp);
+                    } catch (e) {
+                        console.error("Failed to parse data:", data);
+                        return;
+                    }
+
+                    chartT.updateSeries([{
+                        data: newDataT,
+                    }], true);
+
+                    chartT.updateOptions({
+                        xaxis: {
+                            categories: timestampT
+                        }
+                    }, true);
+
+                } else if (chartId === 'chartH') {
+                    try {
+                        newDataH.push(parseFloat(data));
+                        timestampH.push(timestamp);
+                    } catch (e) {
+                        console.error("Failed to parse data:", data);
+                        return;
+                    }
+
+                    chartH.updateSeries([{
+                        data: newDataH,
+                    }], true);
+
+                    chartH.updateOptions({
+                        xaxis: {
+                            categories: timestampH
+                        }
+                    }, true);
+                }
+            }
+
+            function updateTime() {
+                var jakartaTime = moment().tz("Asia/Jakarta").format('DD/MM/YYYY HH:mm:ss');
+                document.getElementById('clock').innerText = jakartaTime;
+            }
+
+            // Update time every second
+            setInterval(updateTime, 1000);
+
+            // Initial call to display the time immediately on load
+            updateTime();
+
+
+            $('input[name=switch]').on('change', function () {
+
+                var status = $(this).is(':checked');
+
+                var device_id = "{{ $device->device_id }}";
+                $.ajax({
+                    url: route('customer.device.pub', {
+                        'device_id' : device_id,
+                        'switch' : status
+                    }), // The URL to make the request to
+                    type: 'POST', // The HTTP method to use
+                    // data: JSON.stringify({ key1: 'value1', key2: 'value2' }), // The data to send in the request body
+                    // contentType: 'application/json', // The content type of the data being sent
+                    // dataType: 'json', // The type of data you're expecting back from the server
+                    success: function(response) {
+                        // This function will be called if the request is successful
+                        console.log('Success:', response);
+                    },
+                    error: function(xhr, status, error) {
+                        // This function will be called if there is an error with the request
+                        console.error('Error:', error);
+                    }
+                });
+
+            })
+
         });
 
-        // Callback function executed when the client successfully connects
-        function onConnect() {
-            console.log("Connected to HiveMQ broker");
-            // Subscribe to MQTT topics
-            client.subscribe(mqttTopicT);
-            client.subscribe(mqttTopicH);
-        }
 
-        // Callback function executed when the client loses its connection
-        function onConnectionLost(responseObject) {
-            if (responseObject.errorCode !== 0) {
-                console.log("Connection lost:", responseObject.errorMessage);
-            }
-        }
-
-        // Callback function executed when a message arrives
-        function onMessageArrived(message) {
-            console.log("Message received:", message.payloadString);
-            if (message.destinationName === mqttTopicT) {
-                updateChart('chartT', message.payloadString);
-            } else if (message.destinationName === mqttTopicH) {
-                updateChart('chartH', message.payloadString);
-            }
-        }
-
-        // Chart Configuration
-        var optionsT = {
-            chart: {
-                type: 'line',
-                height: 350,
-                animations: {
-                    enabled: false
-                }
-            },
-            series: [{
-                name: 'Temperature Data',
-                data: []
-            }],
-            xaxis: {
-                type: 'datetime',
-                categories: []
-            }
-        };
-
-        var optionsH = {
-            chart: {
-                type: 'line',
-                height: 350,
-                animations: {
-                    enabled: false
-                }
-            },
-            series: [{
-                name: 'Humidity Data',
-                data: []
-            }],
-            xaxis: {
-                type: 'datetime',
-                categories: []
-            }
-        };
-
-        var chartT = new ApexCharts(document.querySelector("#chartT"), optionsT);
-        var chartH = new ApexCharts(document.querySelector("#chartH"), optionsH);
-
-        chartT.render();
-        chartH.render();
-
-        // Update chart with new data
-        function updateChart(chartId, data) {
-            var newData;
-            try {
-                newData = JSON.parse(data);
-            } catch (e) {
-                console.error("Failed to parse data:", data);
-                return;
-            }
-            var timestamp = new Date().toISOString();
-
-            if (chartId === 'chartT') {
-                if (!Array.isArray(chartT.w.globals.series[0].data)) {
-                    chartT.w.globals.series[0].data = [];
-                }
-                chartT.updateSeries([{
-                    data: [...chartT.w.globals.series[0].data, newData],
-                }], true);
-
-                chartT.updateOptions({
-                    xaxis: {
-                        categories: [...chartT.w.globals.xaxis.categories, timestamp]
-                    }
-                }, true);
-            } else if (chartId === 'chartH') {
-                if (!Array.isArray(chartH.w.globals.series[0].data)) {
-                    chartH.w.globals.series[0].data = [];
-                }
-                chartH.updateSeries([{
-                    data: [...chartH.w.globals.series[0].data, newData],
-                }], true);
-
-                chartH.updateOptions({
-                    xaxis: {
-                        categories: [...chartH.w.globals.xaxis.categories, timestamp]
-                    }
-                }, true);
-            }
-        }
-
-        // window.addEventListener("load", function(){
-
-        //     getcorkThemeObject = localStorage.getItem("theme");
-        //     getParseObject = JSON.parse(getcorkThemeObject)
-        //     ParsedObject = getParseObject;
-
-        //     if (ParsedObject.settings.layout.darkMode) {
-
-        //         Apex.grid = {
-        //             borderColor: '#191e3a'
-        //         }
-        //         Apex.track = {
-        //             background: '#0e1726',
-        //         }
-        //         Apex.tooltip = {
-        //             theme: 'dark'
-        //         }
-
-
-        //         // Simple Line Area
-
-        //         var sLineArea ={
-        //             series: [{
-        //             name: 'Sales',
-        //             data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-        //             }],
-        //             chart: {
-        //             height: 350,
-        //             type: 'line',
-        //             },
-        //             forecastDataPoints: {
-        //             count: 7
-        //             },
-        //             stroke: {
-        //             width: 5,
-        //             curve: 'smooth'
-        //             },
-        //             xaxis: {
-        //             type: 'datetime',
-        //             categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
-        //             tickAmount: 10,
-        //             labels: {
-        //                 formatter: function(value, timestamp, opts) {
-        //                 return opts.dateFormatter(new Date(timestamp), 'dd MMM')
-        //                 }
-        //             }
-        //             },
-        //             title: {
-        //             text: 'Forecast',
-        //             align: 'left',
-        //             style: {
-        //                 fontSize: "16px",
-        //                 color: '#666'
-        //             }
-        //             },
-        //             fill: {
-        //             type: 'gradient',
-        //             gradient: {
-        //                 shade: 'dark',
-        //                 gradientToColors: [ '#FDD835'],
-        //                 shadeIntensity: 1,
-        //                 type: 'horizontal',
-        //                 opacityFrom: 1,
-        //                 opacityTo: 1,
-        //                 stops: [0, 100, 100, 100]
-        //             },
-        //             }
-        //             };
-
-
-        //     } else {
-
-        //         Apex.grid = {
-        //             borderColor: '#ebedf2'
-        //         }
-        //         Apex.track = {
-        //             background: '#e0e6ed',
-        //         }
-        //         Apex.tooltip = {
-        //             theme: 'dark'
-        //         }
-
-
-        //         // Simple Line Area
-
-        //         var sLineArea = {
-        //             series: [{
-        //             name: 'Sales',
-        //             data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
-        //             }],
-        //             chart: {
-        //             height: 350,
-        //             type: 'line',
-        //             },
-        //             forecastDataPoints: {
-        //             count: 7
-        //             },
-        //             stroke: {
-        //             width: 5,
-        //             curve: 'smooth'
-        //             },
-        //             xaxis: {
-        //             type: 'datetime',
-        //             categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
-        //             tickAmount: 10,
-        //             labels: {
-        //                 formatter: function(value, timestamp, opts) {
-        //                 return opts.dateFormatter(new Date(timestamp), 'dd MMM')
-        //                 }
-        //             }
-        //             },
-        //             title: {
-        //             text: 'Forecast',
-        //             align: 'left',
-        //             style: {
-        //                 fontSize: "16px",
-        //                 color: '#666'
-        //             }
-        //             },
-        //             fill: {
-        //             type: 'gradient',
-        //             gradient: {
-        //                 shade: 'dark',
-        //                 gradientToColors: [ '#FDD835'],
-        //                 shadeIntensity: 1,
-        //                 type: 'horizontal',
-        //                 opacityFrom: 1,
-        //                 opacityTo: 1,
-        //                 stops: [0, 100, 100, 100]
-        //             },
-        //             }
-        //             };
-
-
-        //     }
-
-
-        //     // Simple Line Area
-
-        //     var simpleLineArea = new ApexCharts(
-        //         document.querySelector("#s-line-area"),
-        //         sLineArea
-        //     );
-
-        //     simpleLineArea.render();
-
-
-
-
-        //     /**
-        //      * =================================================================================================
-        //      * |     @Re_Render | Re render all the necessary JS when clicked to switch/toggle theme           |
-        //      * =================================================================================================
-        //      */
-
-        //     document.querySelector('.theme-toggle').addEventListener('click', function() {
-
-        //         getcorkThemeObject = localStorage.getItem("theme");
-        //         getParseObject = JSON.parse(getcorkThemeObject)
-        //         ParsedObject = getParseObject;
-
-        //         // console.log(ParsedObject.settings.layout.darkMode)
-
-        //         if (ParsedObject.settings.layout.darkMode) {
-
-        //             simpleLineArea.updateOptions({
-        //                 grid: {
-        //                     borderColor: '#191e3a'
-        //                 },
-        //             })
-
-
-
-        //         } else {
-        //             // Apex.grid = {
-        //             //     borderColor: '#ebedf2'
-        //             // }
-        //             // Apex.track = {
-        //             //     background: '#e0e6ed',
-        //             // }
-        //             // Apex.tooltip = {
-        //             //     theme: 'dark'
-        //             // }
-
-        //             simpleLineArea.updateOptions({
-        //                 grid: {
-        //                     borderColor: '#ebedf2'
-        //                 },
-        //             })
-
-
-
-        //         }
-
-        //     })
-
-        // })
 
 
         const Toast = Swal.mixin({

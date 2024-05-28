@@ -323,6 +323,9 @@
     <script src="{{ asset('cork/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('cork/src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
     <script src="{{ asset('cork/src/plugins/src/waves/waves.min.js') }}"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('vendor/loadingoverlay-js/dist/loadingoverlay.js') }}"></script>
+
     <script>
         window.addEventListener("load", function(){
             var nav_logo = "{{ asset('cork/src/assets/img/logo-smart-extension.png') }}";
@@ -334,7 +337,7 @@
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+
     @stack('scripts')
 
 
