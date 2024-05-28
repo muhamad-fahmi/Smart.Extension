@@ -316,11 +316,19 @@
 
     @routes
 
+
+
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
     <script src="{{ asset('cork/src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('cork/src/plugins/src/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('cork/src/plugins/src/mousetrap/mousetrap.min.js') }}"></script>
     <script src="{{ asset('cork/src/plugins/src/waves/waves.min.js') }}"></script>
+    <script>
+        window.addEventListener("load", function(){
+            var nav_logo = "{{ asset('cork/src/assets/img/logo-smart-extension.png') }}";
+        });
+    </script>
+
     <script src="{{ asset('cork/app.js') }}"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 
@@ -329,12 +337,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.min.js"></script>
     @stack('scripts')
 
-    <script>
-        $(document).ready(function () {
-            var nav_logo = "{{ asset('cork/src/assets/img/logo-smart-extension.png') }}";
-            $('.theme-logo img.navbar-logo').attr('src', nav_logo);
-        });
-    </script>
+
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 
 

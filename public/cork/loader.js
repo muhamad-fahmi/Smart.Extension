@@ -7,7 +7,7 @@ window.addEventListener("load", function(){
     var layoutName = 'Modern Light Menu';
 
     var settingsObject = {
-        admin: 'Cork Admin Template',
+        admin: "Cork Admin Template",
         settings: {
             layout: {
                 name: layoutName,
@@ -15,13 +15,13 @@ window.addEventListener("load", function(){
                 darkMode: false,
                 boxed: true,
                 logo: {
-                    darkLogo: '../../../cork/src/assets/img/logo-smart-extension.png',
-                    lightLogo: '../../../cork/src/assets/img/logo-smart-extension.png'
-                }
-            }
+                    darkLogo: nav_logo,
+                    lightLogo: nav_logo,
+                },
+            },
         },
-        reset: false
-    }
+        reset: false,
+    };
 
 
     if (settingsObject.reset) {
@@ -70,7 +70,9 @@ window.addEventListener("load", function(){
             document.body.classList.add('dark');
             if (ifStarterKit) {
                 if (document.querySelector('.navbar-logo')) {
-                    document.querySelector('.navbar-logo').setAttribute('src', '../../../cork/src/assets/img/logo-smart-extension.png')
+                    document
+                        .querySelector(".navbar-logo")
+                        .setAttribute("src", nav_logo);
                 }
             } else {
                 if (document.querySelector('.navbar-logo')) {
@@ -88,7 +90,9 @@ window.addEventListener("load", function(){
             document.body.classList.remove('dark');
             if (ifStarterKit) {
                 if (document.querySelector('.navbar-logo')) {
-                    document.querySelector('.navbar-logo').setAttribute('src', '../../../cork/src/assets/img/logo-smart-extension.png')
+                    document
+                        .querySelector(".navbar-logo")
+                        .setAttribute("src", nav_logo);
                 }
             } else {
                 if (document.querySelector('.navbar-logo')) {

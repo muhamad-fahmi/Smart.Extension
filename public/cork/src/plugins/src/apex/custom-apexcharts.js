@@ -59,49 +59,54 @@ window.addEventListener("load", function(){
         // Simple Line Area
 
         var sLineArea = {
-            chart: {
-                fontFamily: 'Nunito, Arial, sans-serif',
-                height: 350,
-                type: 'area',
-                toolbar: {
-                show: false,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            series: [{
-                name: 'series1',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-            legend: {
-                markers: {
-                    width: 10,
-                    height: 10,
-                    offsetX: -5,
-                    offsetY: 0
-                },
-                itemMargin: {
-                    horizontal: 10,
-                    vertical: 0
-                }
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
+          series: [{
+          name: 'Sales',
+          data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
+        }],
+          chart: {
+          height: 350,
+          type: 'line',
+        },
+        forecastDataPoints: {
+          count: 7
+        },
+        stroke: {
+          width: 5,
+          curve: 'smooth'
+        },
+        xaxis: {
+          type: 'datetime',
+          categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001','4/11/2001' ,'5/11/2001' ,'6/11/2001'],
+          tickAmount: 10,
+          labels: {
+            formatter: function(value, timestamp, opts) {
+              return opts.dateFormatter(new Date(timestamp), 'dd MMM')
             }
+          }
+        },
+        title: {
+          text: 'Forecast',
+          align: 'left',
+          style: {
+            fontSize: "16px",
+            color: '#666'
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'dark',
+            gradientToColors: [ '#FDD835'],
+            shadeIntensity: 1,
+            type: 'horizontal',
+            opacityFrom: 1,
+            opacityTo: 1,
+            stops: [0, 100, 100, 100]
+          },
         }
+        };
+;
+
 
         // Simple Column
 
@@ -118,7 +123,7 @@ window.addEventListener("load", function(){
                 bar: {
                     horizontal: false,
                     columnWidth: '55%',
-                    endingShape: 'rounded'  
+                    endingShape: 'rounded'
                 },
             },
             dataLabels: {
@@ -392,7 +397,7 @@ window.addEventListener("load", function(){
                 }
             },
             series: [44, 55, 67, 83],
-            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
         }
 
     } else {
@@ -450,49 +455,66 @@ window.addEventListener("load", function(){
         // Simple Line Area
 
         var sLineArea = {
-            chart: {
-                fontFamily: 'Nunito, Arial, sans-serif',
-                height: 350,
-                type: 'area',
-                toolbar: {
-                show: false,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
             series: [{
-                name: 'series1',
-                data: [31, 40, 28, 51, 42, 109, 100]
-            }, {
-                name: 'series2',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }],
-            legend: {
-                markers: {
-                    width: 10,
-                    height: 10,
-                    offsetX: -5,
-                    offsetY: 0
-                },
-                itemMargin: {
-                    horizontal: 10,
-                    vertical: 0
-                }
+            name: 'XYZ MOTORS',
+            data: dates
+          }],
+            chart: {
+            type: 'area',
+            stacked: false,
+            height: 350,
+            zoom: {
+              type: 'x',
+              enabled: true,
+              autoScaleYaxis: true
             },
-            xaxis: {
-                type: 'datetime',
-                categories: ["2018-09-19T00:00:00", "2018-09-19T01:30:00", "2018-09-19T02:30:00", "2018-09-19T03:30:00", "2018-09-19T04:30:00", "2018-09-19T05:30:00", "2018-09-19T06:30:00"],                
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy HH:mm'
-                },
+            toolbar: {
+              autoSelected: 'zoom'
             }
-        }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          markers: {
+            size: 0,
+          },
+          title: {
+            text: 'Stock Price Movement',
+            align: 'left'
+          },
+          fill: {
+            type: 'gradient',
+            gradient: {
+              shadeIntensity: 1,
+              inverseColors: false,
+              opacityFrom: 0.5,
+              opacityTo: 0,
+              stops: [0, 90, 100]
+            },
+          },
+          yaxis: {
+            labels: {
+              formatter: function (val) {
+                return (val / 1000000).toFixed(0);
+              },
+            },
+            title: {
+              text: 'Price'
+            },
+          },
+          xaxis: {
+            type: 'datetime',
+          },
+          tooltip: {
+            shared: false,
+            y: {
+              formatter: function (val) {
+                return (val / 1000000).toFixed(0)
+              }
+            }
+          }
+          };
+
 
         // Simple Column
 
@@ -509,7 +531,7 @@ window.addEventListener("load", function(){
                 bar: {
                     horizontal: false,
                     columnWidth: '55%',
-                    endingShape: 'rounded'  
+                    endingShape: 'rounded'
                 },
             },
             dataLabels: {
@@ -783,9 +805,9 @@ window.addEventListener("load", function(){
                 }
             },
             series: [44, 55, 67, 83],
-            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],    
+            labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
         }
-        
+
     }
 
     // Simple Line
@@ -911,13 +933,13 @@ window.addEventListener("load", function(){
                     borderColor: '#191e3a'
                 },
             })
-            
+
             simpleBar.updateOptions({
                 grid: {
                     borderColor: '#191e3a'
                 },
             })
-            
+
             mixed.updateOptions({
                 grid: {
                     borderColor: '#191e3a'
@@ -929,8 +951,8 @@ window.addEventListener("load", function(){
                     colors: '#0e1726'
                 }
             })
-            
-            
+
+
         } else {
             // Apex.grid = {
             //     borderColor: '#ebedf2'
@@ -943,7 +965,7 @@ window.addEventListener("load", function(){
             // }
 
 
-            
+
 
             simpleLine.updateOptions({
                 grid: {
@@ -973,13 +995,13 @@ window.addEventListener("load", function(){
                     borderColor: '#ebedf2'
                 },
             })
-            
+
             simpleBar.updateOptions({
                 grid: {
                     borderColor: '#ebedf2'
                 },
             })
-            
+
             mixed.updateOptions({
                 grid: {
                     borderColor: '#ebedf2'
@@ -991,9 +1013,9 @@ window.addEventListener("load", function(){
                     colors: '#e0e6ed'
                 }
             })
-            
+
         }
-         
+
      })
-    
+
 })

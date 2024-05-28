@@ -258,26 +258,31 @@ class MyDeviceController extends Controller
 
         ini_set('max_execution_time', 300);
 
-        $topic = $device_id . '/relay';
+        $topic_temp = $device_id . '/sensor/dht22/t';
+        $topic_hum = $device_id . '/sensor/dht22/h';
 
         try {
 
 
-            $command = '/opt/homebrew/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic.'" -m "'.$message.'"';
-            $process = Process::fromShellCommandline($command);
-            $process->run();
+            $command_temp = '/opt/homebrew/bin/mosquitto_sub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic_temp.'"';
+
+            $command_hum = '/opt/homebrew/bin/mosquitto_sub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic_hum.'"';
+
+            $process_temp = Process::fromShellCommandline($command_temp);
+            $process_temp->run();
+
 
             // executes after the command finishes
-            if (!$process->isSuccessful()) {
+            if (!$process_temp->isSuccessful()) {
                 return response()->json([
                     'status' => 'error',
-                    'error' => $process->getErrorOutput()
+                    'error' => $process_temp->getErrorOutput()
                 ], 500);
             }
 
             return response()->json([
                 'status' => 'success',
-                'output' => $process->getOutput()
+                'output' => $process_temp->getOutput()
             ]);
 
 
