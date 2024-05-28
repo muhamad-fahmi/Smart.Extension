@@ -18,6 +18,9 @@
 <link href="{{ asset('cork/src/assets/css/dark/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('cork/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+
 <style>
     #blog-list img {
         border-radius: 18px;
@@ -177,6 +180,134 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="d-block d-sm-block d-lg-none d-xl-none">
+        <div class="accordion" id="accordionExample">
+            @foreach ($my_devices as $device)
+                <div class="card">
+                    <div class="card-header p-2">
+                        <div class="row p-0">
+                            <div class="col-2 d-flex justify-content-center align-items-center">
+                                <i class="fa-solid fa-house-laptop"></i>
+                            </div>
+                            <div class="col-8 d-flex align-items-center">
+                                <p class="m-0">
+                                    {{ $device->name }}
+                                </p>
+                            </div>
+                            <div class="col-2 d-flex justify-content-end align-items-center p-0">
+                                <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-icon-toggle">
+                                    <div class="input-checkbox">
+                                        <span class="switch-chk-label label-left"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6.995 12c0 2.761 2.246 5.007 5.007 5.007s5.007-2.246 5.007-5.007-2.246-5.007-5.007-5.007S6.995 9.239 6.995 12zM11 19h2v3h-2zm0-17h2v3h-2zm-9 9h3v2H2zm17 0h3v2h-3zM5.637 19.778l-1.414-1.414 2.121-2.121 1.414 1.414zM16.242 6.344l2.122-2.122 1.414 1.414-2.122 2.122zM6.344 7.759 4.223 5.637l1.415-1.414 2.12 2.122zm13.434 10.605-1.414 1.414-2.122-2.122 1.414-1.414z"></path></svg></span>
+                                        <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-icon" checked device-id="{{ $device->device->device_id }}">
+                                        <span class="switch-chk-label label-right"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 11.807A9.002 9.002 0 0 1 10.049 2a9.942 9.942 0 0 0-5.12 2.735c-3.905 3.905-3.905 10.237 0 14.142 3.906 3.906 10.237 3.905 14.143 0a9.946 9.946 0 0 0 2.735-5.119A9.003 9.003 0 0 1 12 11.807z"></path></svg></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne{{ $device->id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ $device->id }}" aria-expanded="false" aria-controls="collapseOne{{ $device->id }}">
+                                    Option
+                                </button>
+                            </h2>
+                            <div id="collapseOne{{ $device->id }}" class="accordion-collapse collapse" aria-labelledby="headingOne{{ $device->id }}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <form action="{{ route('customer.device.update', $device->id) }}" method="post">
+                                        @csrf
+                                        @method('PUT')
+                                            <x-input type="text" field="Device Name" value="{{ $device->name }}"/>
+
+                                            @foreach ($device->schedule as $schedule)
+                                            <div class="row mb-3">
+                                                <div class="col-4">
+                                                    <div class="form-group">
+                                                        <label for="action">Action</label><br>
+
+                                                        <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-text-toggle">
+                                                            <div class="input-checkbox">
+                                                                <span class="switch-chk-label label-left">ON</span>
+                                                                <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-text" name="scheduled_action[]" {{ $schedule->action == "ON" ? "checked" : "" }}>
+                                                                <span class="switch-chk-label label-right">OFF</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="form-group">
+                                                        <label for="scheduled_time">Scheduled Time</label>
+                                                        <input type="text" name="scheduled_time[]" class="form-control" placeholder="Ex: 12:00" value="{{ $schedule->scheduled_time }}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+
+                                        <div class="d-flex justify-content-end my-3">
+                                            <button type="submit" class="btn btn-danger">Update</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            @endforeach
+        </div>
+
+        <!-- Modal Update Voucher -->
+        <div class="modal fade text-left" id="updateModal" >
+            <div class="modal-dialog">
+                <div class="modal-content bg-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black" id="updateModalLabel">Update</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="" id="formEditInv" method="post">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body" style="text-align: left">
+                        <x-input type="text" field="No Invoice" value=""/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Delete Voucher -->
+        <div class="modal fade" id="deleteModal" >
+            <div class="modal-dialog">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="deleteModalLabel">Confirmation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-body">
+                    <p class="my-3">Will you delete selected invoice data ? </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Continue</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
     </div>
 </div>
 @else
