@@ -1,66 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Smart.Extension
 
+## Deskripsi Proyek
+
+**Smart.Extension** adalah proyek tugas akhir yang dikembangkan oleh mahasiswa Universitas Indraprasta PGRI. Proyek ini bertujuan untuk menciptakan sistem smart home yang terjangkau dan minimalis menggunakan chip ESP-01. Sistem ini mengintegrasikan lampu pintar dan sensor DHT22 untuk memantau suhu serta kelembaban lingkungan, yang dapat dikontrol melalui aplikasi mobile atau web.
+
+## Fitur Utama
+
+- **Kontrol Lampu Pintar**: Mengontrol lampu melalui aplikasi mobile atau web.
+- **Pemantauan Suhu dan Kelembaban**: Menggunakan sensor DHT22 untuk mendapatkan data suhu dan kelembaban secara real-time.
+- **Otomatisasi**: Mengatur lampu untuk menyala atau mati berdasarkan kondisi suhu atau kelembaban tertentu.
+- **Pengingat dan Notifikasi**: Memberikan notifikasi ketika suhu atau kelembaban mencapai ambang batas tertentu.
+- **Integrasi dengan Platform IoT**: Sinkronisasi dengan platform IoT populer untuk analisis data dan manajemen perangkat.
+
+## Komponen Hardware
+
+- **ESP-01**: Chip Wi-Fi yang digunakan untuk menghubungkan sensor dan lampu ke jaringan.
+- **Sensor DHT22**: Sensor untuk mengukur suhu dan kelembaban.
+- **Relay**: Untuk mengendalikan aliran listrik ke lampu.
+
+## Instalasi
+
+1. Clone repositori ini ke komputer Anda:
+    ```sh
+    git clone https://github.com/username/Smart.Extension.git
+    ```
+2. Navigasi ke direktori proyek:
+    ```sh
+    cd Smart.Extension
+    ```
+3. Instal dependensi yang diperlukan untuk bagian perangkat lunak:
+    ```sh
+    npm install
+    ```
+4. Upload kode ke ESP-01:
+    - Gunakan Arduino IDE atau alat pemrograman ESP-01 lainnya.
+    - Buka file dari folder `microcontroller_code` dan upload ke ESP-01.
+
+## Cara Penggunaan
+
+1. Hubungkan sensor DHT22 dan lampu pintar ke ESP-01 sesuai dengan diagram yang diberikan di folder `hardware_setup`.
+2. Buka aplikasi mobile atau web yang telah disediakan di folder `app`.
+3. Gunakan antarmuka aplikasi untuk menyalakan/mematikan lampu dan memantau suhu serta kelembaban.
+
+<!-- ## Diagram Koneksi
+
+![Diagram Koneksi](diagram_koneksi.png)
+
+## Kontribusi
+
+Kami menerima kontribusi dari siapa saja yang tertarik untuk meningkatkan proyek ini. Untuk berkontribusi, silakan ikuti langkah-langkah berikut:
+
+1. Fork repositori ini.
+2. Buat branch baru untuk fitur atau perbaikan Anda (`git checkout -b fitur-anda`).
+3. Commit perubahan Anda (`git commit -am 'Menambahkan fitur ABC'`).
+4. Push branch ke repositori fork Anda (`git push origin fitur-anda`).
+5. Buat Pull Request di GitHub.
+
+## Tim Pengembang
+
+- **Nama Mahasiswa 1** - [GitHub](https://github.com/username1)
+- **Nama Mahasiswa 2** - [GitHub](https://github.com/username2)
+- **Nama Mahasiswa 3** - [GitHub](https://github.com/username3)
+- **Nama Mahasiswa 4** - [GitHub](https://github.com/username4)
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah lisensi MIT. Lihat file [LICENSE](LICENSE) untuk informasi lebih lanjut.
+
+## Kontak
+
+Untuk informasi lebih lanjut atau pertanyaan, silakan hubungi kami di email@example.com. -->
+
+---
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="https://seeklogo.com/images/U/universitas-indraprasta-pgri-logo-233C8D8574-seeklogo.com.png" alt="Logo Universitas Indraprasta PGRI" width="100">
 </p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
