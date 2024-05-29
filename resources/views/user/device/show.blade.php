@@ -29,6 +29,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
 
+<link href="{{ asset('cork/src/plugins/css/light/loaders/custom-loader.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('cork/src/plugins/css/dark/loaders/custom-loader.css') }}" rel="stylesheet" type="text/css" />
+
 <style>
     textarea.h-25 {
         height: 13rem !important;
@@ -76,10 +79,10 @@
                             <h1 class="m-0 text-primary"><i class="fa-solid fa-lightbulb"></i></h1>
                         </div>
                         <div class="col-9 d-flex align-items-center">
-                            <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-label-toggle show">
+                            <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-label-toggle  {{ $device->user[0]->last_status == "ON" ? "show" : "" }}">
                                 <div class="input-checkbox">
                                     <span class="switch-chk-label label-left">OFF</span>
-                                    <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-label" name="switch" onchange="this.checked ? this.closest('.inner-label-toggle').classList.add('show') : this.closest('.inner-label-toggle').classList.remove('show')" checked>
+                                    <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-label" name="switch" onchange="this.checked ? this.closest('.inner-label-toggle').classList.add('show') : this.closest('.inner-label-toggle').classList.remove('show')" {{ $device->user[0]->last_status == "ON" ? "checked" : "" }}>
                                     <span class="switch-chk-label label-right">ON</span>
                                 </div>
                             </div>
@@ -95,7 +98,12 @@
         <div class="col-md-6">
             <div class="card border-0 mb-2">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="d-flex justify-content-center align-items-center loader-t mx-auto my-4">
+                        <div class="spinner-border text-primary align-self-center">Loading...</div>
+                    </div>
+
+
+                    <div class="row dht-t-result" style="display: none;">
                         <div class="col-3 d-flex align-items-center justify-content-center">
                             <h1 class="m-0 text-primary"><i class="fa-solid fa-temperature-three-quarters"></i></h1>
                         </div>
@@ -111,7 +119,12 @@
         <div class="col-md-6">
             <div class="card border-0 mb-2">
                 <div class="card-body">
-                    <div class="row">
+
+                    <div class="d-flex justify-content-center align-items-center loader-h mx-auto my-4">
+                        <div class="spinner-border text-primary align-self-center">Loading...</div>
+                    </div>
+
+                    <div class="row dht-h-result"  style="display: none;">
                         <div class="col-3 d-flex align-items-center justify-content-center">
                             <h1 class="m-0 text-primary"><i class="fa-solid fa-droplet"></i></h1>
                         </div>
@@ -136,7 +149,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+
+                <div class="d-flex justify-content-center align-items-center loader-t mx-auto py-4">
+                    <div class="spinner-border text-primary align-self-center">Loading...</div>
+                </div>
+
+                <div class="widget-content widget-content-area dht-t-result"  style="display: none;">
                     <div id="chartT"></div>
                 </div>
             </div>
@@ -151,7 +169,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+
+                <div class="d-flex justify-content-center align-items-center loader-h mx-auto py-4">
+                    <div class="spinner-border text-primary align-self-center">Loading...</div>
+                </div>
+
+                <div class="widget-content widget-content-area dht-h-result"  style="display: none;">
                     <div id="chartH"></div>
                 </div>
             </div>
@@ -240,13 +263,17 @@
 
             function onMessageArrived(message) {
                 if (message.destinationName === mqttTopicT) {
-                    console.log(`${message.destinationName} : ${message.payloadString}`);
+                    // console.log(`${message.destinationName} : ${message.payloadString}`);
                     $('#temp_value').text(message.payloadString);
                     updateChart('chartT', message.payloadString);
+                    $('.dht-t-result').show();
+                    $('.loader-t').removeClass('d-flex').addClass('d-none').hide();
                 } else if (message.destinationName === mqttTopicH) {
-                    console.log(`${message.destinationName} : ${message.payloadString}`);
+                    // console.log(`${message.destinationName} : ${message.payloadString}`);
                     $('#hum_value').text(message.payloadString);
                     updateChart('chartH', message.payloadString);
+                    $('.dht-h-result').show();
+                    $('.loader-h').removeClass('d-flex').addClass('d-none').hide();
                 }
             }
 
@@ -408,10 +435,26 @@
                         console.log('Success:', response);
                         $.LoadingOverlay('hide');
 
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Berhasil menyalakan lampu'
-                        });
+                        if (status === true) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Berhasil menyalakan lampu'
+                            });
+
+                            $('.form-switch-primary').addClass('show');
+
+                            $('#form-custom-switch-inner-label').attr('checked', true);
+                        } else {
+
+                            Toast.fire({
+                                icon: 'success',
+                                title: 'Berhasil mematikan lampu'
+                            });
+
+                            $('.form-switch-primary').removeClass('show');
+
+                            $('#form-custom-switch-inner-label').attr('checked', false);
+                        }
 
                     },
                     error: function(xhr, status, error) {
@@ -422,7 +465,7 @@
                             icon: 'error',
                             title: error
                         });
-                        
+
                     }
                 });
 

@@ -69,7 +69,7 @@ class MyDeviceController extends Controller
 
             if (!empty($device)) {
                 if ($device->status == true) {
-                    if (!empty($device->user)) {
+                    if ($device->user->count() > 0) {
                         $status = 0;
                     } else  {
                         $status = 1;
@@ -124,7 +124,7 @@ class MyDeviceController extends Controller
 
         if (!empty($device)) {
             if ($device->status == true) {
-                if (!empty($device->user)) {
+                if ($device->user->count() > 0) {
                     $status = 0;
                     $message = 'ID anda tidak valid atau sudah dipakai oleh pengguna lain !';
                 } else  {
@@ -239,6 +239,14 @@ class MyDeviceController extends Controller
                 ], 500);
             }
 
+            $device = Device::where('device_id', $device_id)->first();
+
+            // dd($message);
+
+            UserDevice::where('device_id', $device->id)->update([
+                'last_status' => $message
+            ]);
+
             return response()->json([
                 'status' => 'success',
                 'output' => $process->getOutput()
@@ -254,44 +262,4 @@ class MyDeviceController extends Controller
 
     }
 
-    public function sub($device_id) {
-
-        ini_set('max_execution_time', 300);
-
-        $topic_temp = $device_id . '/sensor/dht22/t';
-        $topic_hum = $device_id . '/sensor/dht22/h';
-
-        try {
-
-
-            $command_temp = '/opt/homebrew/bin/mosquitto_sub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic_temp.'"';
-
-            $command_hum = '/opt/homebrew/bin/mosquitto_sub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic_hum.'"';
-
-            $process_temp = Process::fromShellCommandline($command_temp);
-            $process_temp->run();
-
-
-            // executes after the command finishes
-            if (!$process_temp->isSuccessful()) {
-                return response()->json([
-                    'status' => 'error',
-                    'error' => $process_temp->getErrorOutput()
-                ], 500);
-            }
-
-            return response()->json([
-                'status' => 'success',
-                'output' => $process_temp->getOutput()
-            ]);
-
-
-        } catch (\Excetion $e) {
-            return response()->json([
-                'status' => false
-            ]);
-        }
-
-
-    }
 }

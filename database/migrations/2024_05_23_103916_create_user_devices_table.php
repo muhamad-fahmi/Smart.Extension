@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('device_id');
             $table->string('name');
+            $table->string('last_status');
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class Device extends Model
 
     public function user()
     {
-        return $this->belongsTo(UserDevice::class, 'device_id');
+        return $this->hasMany(UserDevice::class, 'device_id');
 
    }
 
