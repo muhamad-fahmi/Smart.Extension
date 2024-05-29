@@ -389,6 +389,7 @@
 
 
             $('input[name=switch]').on('change', function () {
+                $.LoadingOverlay('show');
 
                 var status = $(this).is(':checked');
 
@@ -405,10 +406,23 @@
                     success: function(response) {
                         // This function will be called if the request is successful
                         console.log('Success:', response);
+                        $.LoadingOverlay('hide');
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Berhasil menyalakan lampu'
+                        });
+
                     },
                     error: function(xhr, status, error) {
                         // This function will be called if there is an error with the request
                         console.error('Error:', error);
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: error
+                        });
+                        
                     }
                 });
 

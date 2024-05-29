@@ -387,28 +387,46 @@
 
         });
 
-        $('.switch-input').on('change', function() {
-            var value = $(this).is(':checked');
-            var device_id = $(this).attr('device-id');
-            $.ajax({
-                url: route('customer.device.pub', {
-                    'device_id' : device_id,
-                    'switch' : value
-                }), // The URL to make the request to
-                type: 'POST', // The HTTP method to use
-                // data: JSON.stringify({ key1: 'value1', key2: 'value2' }), // The data to send in the request body
-                // contentType: 'application/json', // The content type of the data being sent
-                // dataType: 'json', // The type of data you're expecting back from the server
-                success: function(response) {
-                    // This function will be called if the request is successful
-                    console.log('Success:', response);
-                },
-                error: function(xhr, status, error) {
-                    // This function will be called if there is an error with the request
-                    console.error('Error:', error);
-                }
-            });
-        })
+        $('input[name=switch]').on('change', function () {
+                $.LoadingOverlay('show');
+
+                var status = $(this).is(':checked');
+
+                var device_id = "{{ $device->device_id }}";
+                $.ajax({
+                    url: route('customer.device.pub', {
+                        'device_id' : device_id,
+                        'switch' : status
+                    }), // The URL to make the request to
+                    type: 'POST', // The HTTP method to use
+                    // data: JSON.stringify({ key1: 'value1', key2: 'value2' }), // The data to send in the request body
+                    // contentType: 'application/json', // The content type of the data being sent
+                    // dataType: 'json', // The type of data you're expecting back from the server
+                    success: function(response) {
+                        // This function will be called if the request is successful
+                        console.log('Success:', response);
+                        $.LoadingOverlay('hide');
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Berhasil menyalakan lampu'
+                        });
+
+                    },
+                    error: function(xhr, status, error) {
+                        // This function will be called if there is an error with the request
+                        console.error('Error:', error);
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: error
+                        });
+
+                    }
+                });
+
+            })
+
 
 
         const Toast = Swal.mixin({
