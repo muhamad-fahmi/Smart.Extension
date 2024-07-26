@@ -254,6 +254,23 @@
                 if (responseObject && responseObject.errorCode !== undefined) {
                     console.log("Connection lost with error code:", responseObject.errorCode);
                     console.log("Error message:", responseObject.errorMessage);
+
+                    $('.dht-h-result').hide();
+                    $('.loader-h').addClass('d-flex').removeClass('d-none').hide();
+
+                    $('.dht-t-result').hide();
+                    $('.loader-t').addClass('d-flex').removeClass('d-none').hide();
+
+                    setInterval(() => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: responseObject.errorMessage
+                        });
+
+                    }, 5000);
+
+                    $.LoadingOverlay('show');
+
                 } else {
                     console.log("Connection lost with unknown error");
                 }
