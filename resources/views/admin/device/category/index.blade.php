@@ -54,7 +54,7 @@
                     <td class="text-center">
                         <a href="{{ route('admin.device.category.edit', $category->id) }}" class="btn btn-primary btn-sm">Edit</a>
 
-                        <a href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $category->id }}">Delete</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $category->id }}">Delete</button>
 
                         <!-- Modal Create Category Product -->
                         <div class="modal fade" id="deleteModal{{ $category->id }}" tabindex="-1" aria-labelledby="deleteModal{{ $category->id }}Label" aria-hidden="true">

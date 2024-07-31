@@ -8,6 +8,10 @@
 Dashboard
 @endsection
 
+@section('page')
+Dashboard
+@endsection
+
 @section('contents')
 
 <div class="row">

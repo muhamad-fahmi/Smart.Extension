@@ -60,7 +60,7 @@
                         @endif
                     </td>
                     <td class="text-center">
-                        <a href="" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#activateModal{{ $device->id }}">Activate</a>
+                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#activateModal{{ $device->id }}">Activate</button>
 
                         <!-- Modal Create Category News -->
                         <div class="modal fade" id="activateModal{{ $device->id }}" tabindex="-1" aria-labelledby="activateModal{{ $device->id }}Label" aria-hidden="true">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
 
-                        <a href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $device->id }}">Delete</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $device->id }}">Delete</button>
 
                         <!-- Modal Create Category News -->
                         <div class="modal fade" id="deleteModal{{ $device->id }}" tabindex="-1" aria-labelledby="deleteModal{{ $device->id }}Label" aria-hidden="true">

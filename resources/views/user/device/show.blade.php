@@ -20,11 +20,11 @@
 @endpush
 
 @section('title')
-    Detail Device {{ $device->device_id }}
+    Device {{ $device->device_id }}
 @endsection
 
 @section('page')
-    Detail Device <strong>{{ $device->device_id }}</strong>
+    Device <strong>{{ $device->device_id }}</strong>
 @endsection
 
 @section('contents')
@@ -36,7 +36,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3 d-flex align-items-center justify-content-center">
-                            <h1 class="m-0 text-primary"><i class="fa-solid fa-clock"></i></h1>
+                            <h1 class="m-0 text-gradient"><i class="fa-solid fa-clock"></i></h1>
                         </div>
                         <div class="col-9 d-flex align-items-center">
                             <h2 class="m-0"><strong id="clock">0</strong></h2>
@@ -51,16 +51,24 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-3 d-flex align-items-center justify-content-center">
-                            <h1 class="m-0 text-primary"><i class="fa-solid fa-lightbulb"></i></h1>
+                            <h1 class="m-0 text-gradient"><i class="fa-solid fa-lightbulb"></i></h1>
                         </div>
                         <div class="col-9 d-flex align-items-center">
-                            <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-label-toggle  {{ $device->user[0]->last_status == "ON" ? "show" : "" }}">
-                                <div class="input-checkbox">
-                                    <span class="switch-chk-label label-left">OFF</span>
-                                    <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-label" name="switch" onchange="this.checked ? this.closest('.inner-label-toggle').classList.add('show') : this.closest('.inner-label-toggle').classList.remove('show')" {{ $device->user[0]->last_status == "ON" ? "checked" : "" }}>
-                                    <span class="switch-chk-label label-right">ON</span>
+                            <center>
+                                <div class="switch-container">
+                                    <input class="switch-input" type="checkbox" {{ $device->user[0]->last_status == "ON" ? "checked" : "" }} device-id="{{ $device->user[0]->device->device_id }}" name="switch">
+                                    <div class="switch-button">
+                                      <div class="switch-button-inside">
+                                        <svg class="switch-icon off" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12ZM8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14Z"/>
+                                        </svg>
+                                        <svg class="switch-icon on" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                          <rect x="2" y="7" width="12" height="2" rx="1"/>
+                                        </svg>
+                                      </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </center>
                         </div>
                     </div>
                 </div>
@@ -74,16 +82,16 @@
             <div class="card border-0 mb-2">
                 <div class="card-body">
                     <div class="d-flex justify-content-center align-items-center loader-t mx-auto my-4">
-                        <div class="spinner-border text-primary align-self-center">Loading...</div>
+                        <div class="spinner-border text-primary align-self-center"></div>
                     </div>
 
 
                     <div class="row dht-t-result" style="display: none;">
                         <div class="col-3 d-flex align-items-center justify-content-center">
-                            <h1 class="m-0 text-primary"><i class="fa-solid fa-temperature-three-quarters"></i></h1>
+                            <h1 class="m-0 text-gradient"><i class="fa-solid fa-temperature-three-quarters"></i></h1>
                         </div>
                         <div class="col-9">
-                            <p class="my-1">Temperatur</p>
+                            <p class="my-1">Temperature</p>
                             <h2 class="m-0"><strong id="temp_value">0</strong> °C</h2>
                         </div>
                     </div>
@@ -96,15 +104,15 @@
                 <div class="card-body">
 
                     <div class="d-flex justify-content-center align-items-center loader-h mx-auto my-4">
-                        <div class="spinner-border text-primary align-self-center">Loading...</div>
+                        <div class="spinner-border text-primary align-self-center"></div>
                     </div>
 
                     <div class="row dht-h-result"  style="display: none;">
                         <div class="col-3 d-flex align-items-center justify-content-center">
-                            <h1 class="m-0 text-primary"><i class="fa-solid fa-droplet"></i></h1>
+                            <h1 class="m-0 text-gradient"><i class="fa-solid fa-droplet"></i></h1>
                         </div>
                         <div class="col-9">
-                            <p class="my-1">Kelembaban</p>
+                            <p class="my-1">Humidity</p>
                             <h2 class="m-0"><strong id="hum_value">0</strong> % RH</h2>
                         </div>
                     </div>
@@ -120,13 +128,13 @@
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Temperatur</h4>
+                            <h4>Temperature</h4>
                         </div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center loader-t mx-auto py-4">
-                    <div class="spinner-border text-primary align-self-center">Loading...</div>
+                    <div class="spinner-border text-primary align-self-center"></div>
                 </div>
 
                 <div class="widget-content widget-content-area dht-t-result"  style="display: none;">
@@ -140,13 +148,13 @@
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                            <h4>Kelembaban</h4>
+                            <h4>Humidity</h4>
                         </div>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center align-items-center loader-h mx-auto py-4">
-                    <div class="spinner-border text-primary align-self-center">Loading...</div>
+                    <div class="spinner-border text-primary align-self-center"></div>
                 </div>
 
                 <div class="widget-content widget-content-area dht-h-result"  style="display: none;">
@@ -240,10 +248,7 @@
                     $('.loader-t').addClass('d-flex').removeClass('d-none').hide();
 
                     setInterval(() => {
-                        Toast.fire({
-                            icon: 'error',
-                            title: responseObject.errorMessage
-                        });
+                        toastr['error'](responseObject.errorMessage)
 
                     }, 5000);
 
@@ -431,20 +436,15 @@
                         $.LoadingOverlay('hide');
 
                         if (status === true) {
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Berhasil menyalakan lampu'
-                            });
+                            toastr['success']('Berhasil menyalakan lampu')
 
                             $('.form-switch-primary').addClass('show');
 
                             $('#form-custom-switch-inner-label').attr('checked', true);
                         } else {
 
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Berhasil mematikan lampu'
-                            });
+
+                            toastr['success']('Berhasil mematikan lampu')
 
                             $('.form-switch-primary').removeClass('show');
 
@@ -455,11 +455,7 @@
                     error: function(xhr, status, error) {
                         // This function will be called if there is an error with the request
                         console.error('Error:', error);
-
-                        Toast.fire({
-                            icon: 'error',
-                            title: error
-                        });
+                        toastr['error'](error)
 
                     }
                 });
@@ -467,40 +463,6 @@
             })
 
         });
-
-
-
-
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
-
-        <?php
-            if(session('success')) {
-                ?>
-                    Toast.fire({
-                        icon: 'success',
-                        title: '{{ session('success') }}'
-                    })
-                <?php
-            }
-            if(session('error')) {
-                ?>
-                    Toast.fire({
-                        icon: 'error',
-                        title: '{{ session('error') }}'
-                    })
-                <?php
-            }
-        ?>
     </script>
 @endpush
 

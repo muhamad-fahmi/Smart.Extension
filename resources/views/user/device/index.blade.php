@@ -91,7 +91,7 @@
                             </td>
                             <td class="text-center">
 
-                                <a href="" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $device->id }}">Edit</a>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal{{ $device->id }}">Edit</button>
 
                                 <!-- Modal Create Category News -->
                                 <div class="modal fade" id="editModal{{ $device->id }}" tabindex="-1" aria-labelledby="editModal{{ $device->id }}Label" aria-hidden="true">
@@ -142,7 +142,7 @@
 
 
 
-                                <a href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $device->id }}">Delete</a>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $device->id }}">Delete</button>
 
                                 <!-- Modal Create Category News -->
                                 <div class="modal fade" id="deleteModal{{ $device->id }}" tabindex="-1" aria-labelledby="deleteModal{{ $device->id }}Label" aria-hidden="true">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\TermRuleController;
 use App\Http\Controllers\Admin\UndianController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VoucherController;
 
 use App\Http\Controllers\User\HomeController as UserHomeController;
@@ -93,11 +94,9 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::prefix('/user')->group(function () {
-            Route::get('/manage', [DeviceCategoryController::class, 'index'])->name('user.manage');
-            Route::get('/create', [DeviceCategoryController::class, 'create'])->name('user.create');
-            Route::post('/create', [DeviceCategoryController::class, 'store'])->name('user.store');
-            Route::put('/update/{id}', [DeviceCategoryController::class, 'update'])->name('user.update');
-            Route::delete('/delete/{id}', [DeviceCategoryController::class, 'destroy'])->name('user.delete');
+            Route::get('/manage', [UserController::class, 'index'])->name('user.manage');
+            Route::put('/enable/{id}', [UserController::class, 'enable'])->name('user.enable');
+            Route::put('/disable/{id}', [UserController::class, 'disable'])->name('user.disable');
         });
 
 

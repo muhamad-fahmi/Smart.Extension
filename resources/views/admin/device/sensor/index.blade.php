@@ -55,7 +55,7 @@
                     <td class="text-center">
                         <a href="{{ route('admin.device.sensor.edit', $sensor->id) }}" class="btn btn-primary btn-sm">Edit</a>
 
-                        <a href="" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $sensor->id }}">Delete</a>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $sensor->id }}">Delete</button>
 
                         <!-- Modal Create Sensor Product -->
                         <div class="modal fade" id="deleteModal{{ $sensor->id }}" tabindex="-1" aria-labelledby="deleteModal{{ $sensor->id }}Label" aria-hidden="true">
