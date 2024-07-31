@@ -17,13 +17,25 @@ class DeviceSensorController extends Controller
     {
         $sensors = Sensor::orderBy('id', 'desc')->get();
 
-        return view('admin.device.sensor.index', compact('sensors'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Sensors', 'url' => ''],
+        ];
+
+        return view('admin.device.sensor.index', compact('sensors', 'breadcrumbs'));
     }
 
     public function create()
     {
         $categories = DeviceCategory::orderBy('id', 'desc')->get(['id', 'name']);
-        return view('admin.device.sensor.create', compact('categories'));
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Sensors', 'url' => route('admin.device.sensor.manage')],
+            ['name' => 'Create Sensor', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('admin.device.sensor.create', compact('categories', 'breadcrumbs'));
     }
 
 
@@ -86,7 +98,13 @@ class DeviceSensorController extends Controller
 
         $sensor = Sensor::find($id);
 
-        return view('admin.device.sensor.edit', compact('sensor'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Sensors', 'url' => route('admin.device.sensor.manage')],
+            ['name' => 'Edit Sensor', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('admin.device.sensor.edit', compact('sensor', 'breadcrumbs'));
     }
 
     public function update(Request $request, $id)

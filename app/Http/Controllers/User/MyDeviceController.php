@@ -40,7 +40,12 @@ class MyDeviceController extends Controller
         $my_devices = UserDevice::orderBy('id', 'desc')->get();
         $get        = $this;
 
-        return view('user.device.index', compact('my_devices', 'get'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('customer.dashboard')],
+            ['name' => 'My Devices', 'url' => ''],
+        ];
+
+        return view('user.device.index', compact('my_devices', 'get', 'breadcrumbs'));
     }
 
     public function show_device ($device_id) {
@@ -56,7 +61,14 @@ class MyDeviceController extends Controller
 
     public function create()
     {
-        return view('user.device.create');
+
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('customer.dashboard')],
+            ['name' => 'My Devices', 'url' => route('customer.device.manage')],
+            ['name' => 'Register Device', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('user.device.create', compact('breadcrumbs'));
     }
 
 
@@ -151,7 +163,13 @@ class MyDeviceController extends Controller
 
         $device_category = DeviceCategory::find($id);
 
-        return view('user.device.edit', compact('device_category'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('customer.dashboard')],
+            ['name' => 'My Devices', 'url' => route('customer.device.manage')],
+            ['name' => 'Edit Device', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('user.device.edit', compact('device_category', 'breadcrumbs'));
     }
 
     public function update(Request $request, $id)

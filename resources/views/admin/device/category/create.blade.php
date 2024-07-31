@@ -1,156 +1,86 @@
 @extends('layouts.app')
 
 @push('styles')
-    <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-    <link rel="stylesheet" href="{{ asset('cork/src/plugins/src/filepond/filepond.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImagePreview.min.css') }}">
-
-    <link href="{{ asset('cork/src/plugins/css/light/filepond/custom-filepond.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ asset('cork/src/plugins/css/dark/filepond/custom-filepond.css') }}" rel="stylesheet" type="text/css" />
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('cork/src/plugins/src/sweetalerts2/sweetalerts2.css') }}">
-
-    <link href="{{ asset('cork/src/assets/css/light/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/plugins/css/light/sweetalerts2/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ asset('cork/src/assets/css/dark/scrollspyNav.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/plugins/css/dark/sweetalerts2/custom-sweetalert.css') }}" rel="stylesheet" type="text/css" />
-    <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
-
-    <!--  BEGIN CUSTOM STYLE FILE  -->
-    <link rel="stylesheet" href="{{ asset('cork/src/assets/css/light/apps/blog-create.css') }}">
-    <link rel="stylesheet" href="{{ asset('cork/src/assets/css/dark/apps/blog-create.css') }}">
-    <!--  END CUSTOM STYLE FILE  -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 @endpush
 
 @section('title')
     Create Device Category
 @endsection
 
-@section('pagenow')
+@section('page')
     Create Device Category
 @endsection
 
 @section('contents')
     <div class="container-fluid">
+        <div class="card card-body border-0 shadow-sm">
+            <form action="{{ route('admin.device.category.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
 
-        <form action="{{ route('admin.device.category.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
+                <div class="row mb-4 layout-spacing layout-top-spacing">
+                    <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
 
-            <div class="row mb-4 layout-spacing layout-top-spacing">
-                <div class="col-xxl-9 col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="widget-content widget-content-area blog-create-section">
 
-                    <div class="widget-content widget-content-area blog-create-section">
-
-                        <x-input type="text" field="Device Name"/>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <x-input type="text" field="Device Price" classAdd="number-separator-rupiah"/>
-                            </div>
-                            <div class="col-md-6">
-                                <x-input type="number" field="Device Stock"/>
-                            </div>
-                        </div>
-
-
-                        <div class="row mb-4">
-                            <div class="col-sm-12">
-                                <label>Device Description</label>
-                                <textarea id="summernote" cols="30" rows="10" name="device_description" required></textarea>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="col-xxl-3 cåol-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
-                    <div class="widget-content widget-content-area blog-create-section">
-                        <div class="row">
-
-                            <div class="col-xxl-12 col-md-12 mb-4">
-                                <label for="image">Device Image</label>
-
-                                <input type="file" name="image" id="image" class="form-control">
+                            <x-input type="text" field="Device Name"/>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <x-input type="text" field="Device Price" classAdd="number-separator-rupiah"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <x-input type="number" field="Device Stock"/>
+                                </div>
                             </div>
 
-                            <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
-                                <button type="submit" class="btn btn-success w-100">Create Device Category</button>
+
+                            <div class="row mb-4">
+                                <div class="col-sm-12">
+                                    <label class="mb-2">Device Description</label>
+                                    <textarea id="summernote" cols="30" rows="10" name="device_description" class="form-control" required></textarea>
+                                </div>
                             </div>
 
                         </div>
                     </div>
-                </div>
-            </div>
-        </form>
 
-        <!-- Modal Create Category Product -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content bg-light">
-                <div class="modal-header">
-                    <h5 class="modal-title text-black" id="exampleModalLabel">Add New Category</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="col-xxl-3 cåol-xl-12 col-lg-12 col-md-12 col-sm-12 mt-xxl-0 mt-4">
+                        <div class="widget-content widget-content-area blog-create-section">
+                            <div class="row">
+
+                                <div class="col-xxl-12 col-md-12 mb-4">
+                                    <label for="image" class="mb-2">Device Image</label>
+
+                                    <input type="file" name="image" id="image" class="form-control">
+                                </div>
+
+                                <div class="col-xxl-12 col-sm-4 col-12 mx-auto">
+                                    <button type="submit" class="btn btn-outline-primary w-100">
+                                        <i class="bi bi-floppy mr-2"></i>Create Device Category
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <form action="{{ route('admin.device.category.store') }}" id="formProductcategory" method="post">
-                    @csrf
-                    <div class="modal-body">
-                    <x-input type="text" field="Name"/>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-            </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection
 
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/filepond.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginFileValidateType.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImageExifOrientation.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImagePreview.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImageCrop.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImageResize.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/FilePondPluginImageTransform.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/filepond/filepondPluginFileValidateSize.min.js') }}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
-    <script src="{{ asset('cork/src/assets/js/scrollspyNav.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/sweetalerts2/sweetalerts2.min.js') }}"></script>
-    <script src="{{ asset('cork/src/plugins/src/sweetalerts2/custom-sweetalert.js') }}"></script>
-
-    <script src="{{ asset('cork/src/assets/js/apps/blog-create.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script>
-        $(document).ready(() => {
-            $( '.select2' ).select2( {
-                theme: 'bootstrap-5',
-            } );
-        });
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
+        $(document).ready(() => {
+            $('#summernote').summernote({
+                placeholder: 'Type Description ...',
+                tabsize: 2,
+                height: 300
+            });
+        })
 
 
         $(document).on("input", ".number-separator-rupiah", function(event) {

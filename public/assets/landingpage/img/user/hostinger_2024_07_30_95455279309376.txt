@@ -1,0 +1,54 @@
+Conversation with Hostinger
+Started on July 30, 2024 at 09:25 AM Vilnius time EEST (GMT+0300)
+
+---
+
+09:25 AM | Melinda Tan: halo siang saya ingin terhubung langsung dengan customer sevice karena VPS saya tidak bisa di akses
+
+09:26 AM | Emily from Hostinger: Halo! Bisa tolong berikan lebih detail mengenai masalah yang Anda hadapi dengan VPS Anda? Misalnya, kapan masalah ini mulai terjadi, dan apakah ada pesan error yang muncul?
+
+09:26 AM | Melinda Tan: [Image "image.png?expires=1722322800&signature=77ccec938a89e55ba89a799c80fe7512abcd2d84091bb70ba53b7c467e05890a"]
+
+09:26 AM | Melinda Tan: IP VPS saya adalah : 156.67.216.22
+
+09:26 AM | Melinda Tan: statusnya pemeliharaan
+
+09:26 AM | Emily from Hostinger: Untuk menghubungkan ke VPS Anda melalui SSH, Anda dapat mengikuti langkah-langkah ini (https://support.hostinger.com/en/articles/5723772-how-to-connect-to-your-vps-via-ssh). Jika Anda mengalami kesulitan saat menghubungkan ke server melalui SSH, pertimbangkan langkah-langkah berikut: 
+ 1. Reset pengaturan firewall dan SSH 
+2. Reboot VPS Anda 
+ Untuk informasi lebih lanjut, Anda dapat merujuk ke sini (https://support.hostinger.com/en/articles/5726606-how-to-use-the-vps-dashboard-in-hostinger?q=reset+firewall).
+
+09:27 AM | Melinda Tan: saya ingin langsung terhubung ke customer service
+
+09:27 AM | Emily from Hostinger: "Saya akan mengalihkan Anda ke Tim Keberhasilan Pelanggan kami untuk bantuan lebih lanjut. Seorang spesialis akan segera bergabung dalam percakapan kita. Mereka akan memiliki akses ke riwayat obrolan kita, jadi Anda tidak perlu mengulangi apa pun yang telah disebutkan sebelumnya, kecuali Anda ingin memberikan detail tambahan."
+
+09:27 AM | Rahmat from Hostinger: Halo! Saya Rahmat, siap membantu Anda.
+
+09:27 AM | Melinda Tan: [Image "image.png?expires=1722322800&signature=b7d7716480cd85525ef8015ff7e42380df79c2aa6cf9f08f55e9463f222ba168"]
+
+09:28 AM | Melinda Tan: halo server saya tidak bisa di akses sehingga layanan yang berjalan terhambat apakah saat ini sedang maintenance ?
+
+09:28 AM | Melinda Tan: karena status VPS maintenance
+
+09:29 AM | Melinda Tan: IP nya : 156.67.216.22
+
+09:34 AM | Nadya from Hostinger: Perkenalkan, saya Nadya yang akan melanjutkan percakapan Anda dengan rekan saya sebelumnya. Dan terima kasih sudah bersedia untuk menunggu. 
+ 
+ Saya lakukan pengecekan terkait hal tersebut, ya, Kak. Mohon untuk berkenan menunggu sampai saya memberikan updatenya kepada Anda
+
+09:35 AM | Melinda Tan: baik segera ya
+
+09:40 AM | Nadya from Hostinger: Terima kasih atas kesediaannya untuk menunggu Kak, saya informasikan bahwa saat ini sedang terjadi maintenance pada server VPS Anda tersebut. Maintenance ini bertujuan untuk meningkatkan kualitas dan kapabilitas layanan kami. 
+ 
+ Saya meminta maaf atas ketidaknyamanan yang dialami. Saya ucapkan terima kasih atas kesabaran dan pengertian Anda dalam menanggapi hal ini. 
+ 
+ Untuk mengetahui status dari proses maintenance ini, silakan kunjungi https://statuspage.hostinger.com/ (https://statuspage.hostinger.com/). 
+ [Image "image.png?expires=1722323700&signature=7577d93aefcac9f0fe4c6578d72aea56110f1bf331993c51dfb2b8de5e4d6184&req=dSElHs55nYdXWPMW1HO4ze8NxlA0oE3ooyEfOg%3D%3D%0A"] Jika anda membutuhkan bantuan lainnya, jangan ragu untuk menghubungi kami kembali 🙏
+
+09:41 AM | Melinda Tan: diperkirakan sampai jam berapa ya ?
+
+09:42 AM | Nadya from Hostinger: Untuk estimasi pastinya, mohon maaf sekali belum bisa saya berikan Kak. Namun Anda bisa memantau seluruh proses dan progress nya di status page kami https://statuspage.hostinger.com/ (https://statuspage.hostinger.com/) berikut ini 
+ [Image "image.png?expires=1722323700&signature=7577d93aefcac9f0fe4c6578d72aea56110f1bf331993c51dfb2b8de5e4d6184&req=dSElHs55nYdXWPMW1HO4ze8NxlA0oE3ooyEfOg%3D%3D%0A"]
+
+---
+Exported from Hostinger on July 30, 2024 at 09:42 AM Vilnius time EEST (GMT+0300)

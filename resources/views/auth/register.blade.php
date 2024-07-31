@@ -1,142 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Sign Up - Smart.Extension</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('cork/src/assets/img/logo-smart-extension.png') }}"/>
-    <link href="{{ asset('cork/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('cork/loader.js') }}"></script>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Register - {{ env('APP_NAME') }}</title>
+    <link rel="stylesheet" href="{{ asset('assets/landingpage/css/styles.css') }}">
 
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{ asset('cork/src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ asset('cork/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/assets/css/light/authentication/auth-boxed.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ asset('cork/css/dark/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/assets/css/dark/authentication/auth-boxed.css') }}" rel="stylesheet" type="text/css" />
-    {!! ReCaptcha::htmlScriptTagJsApi() !!}
-    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- Custom Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <!-- Bootstrap icons-->
 
 </head>
-<body class="form">
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100 align-items-center">
+				<div class="card-wrapper">
+					<h2 class="text-gradient text-center fw-bolder mb-4">Smart.Extension</h2>
 
-    <!-- BEGIN LOADER -->
-    <div id="load_screen"> <div class="loader"> <div class="loader-content">
-        <div class="spinner-grow align-self-center"></div>
-    </div></div></div>
-    <!--  END LOADER -->
-
-    <div class="auth-container d-flex">
-
-        <div class="container mx-auto align-self-center">
-
-            <div class="row">
-
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
-                    <div class="card mt-3 mb-3">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-
-                                    <h2>Sign Up</h2>
-                                    <p>Enter your email, whatsapp number and password to register</p>
-
-                                </div>
-
-                                <form action="{{ route('register.post') }}" method="post">
-                                @csrf
-
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Name</label>
-                                        <input name="name" type="text" required class="form-control add-billing-address-input" placeholder="Enter Your Name">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Email</label>
-                                        <input name="email" type="email" required class="form-control" placeholder="Enter Your Email">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Whatsapp</label>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text" id="basic-addon1">+62</span>
-                                            <input name="whatsapp" type="number" required class="form-control" placeholder="Enter Your Whatsapp Number">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <input type="password" name="password" required class="form-control" placeholder="Enter Your Password">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="mb-3">
-
-                                    </div>
-                                </div>
-
-                                @if ($errors->any())
-									<div class="alert alert-danger ">
-										<ul>
-											@foreach ($errors->all() as $error)
-												<li>{{ $error }}</li>
-											@endforeach
-										</ul>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">Register</h4>
+							<form action="{{ route('register.post') }}" method="POST" class="my-login-validation" novalidate="">
+								@csrf
+								<div class="form-group mb-3">
+									<label for="name" class="mb-2">Name</label>
+									<input id="name" type="text" class="form-control" name="name" required autofocus>
+									<div class="invalid-feedback">
+										What's your name?
 									</div>
-								@endif
-							    @if (session('success'))
-										<div class="alert alert-success alert-dismissible fade show border-0 mb-4">
-											{{ session('success') }}
-											 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
-										</div>
-								    @endif
-								@if (session('error'))
-										<div class="alert alert-danger alert-dismissible fade show border-0 mb-4">
-											{{ session('error') }}
-											 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
-										</div>
-								@endif
+								</div>
 
-                                <div class="col-12">
-                                    <div class="mb-4">
-                                        <button type="submit" class="btn btn-primary w-100">SIGN UP</button>
-                                    </div>
-                                </div>
-
-                                </form>
+								<div class="form-group mb-3">
+									<label for="email" class="mb-2">E-Mail Address</label>
+									<input id="email" type="email" class="form-control" name="email" required>
+									<div class="invalid-feedback">
+										Your email is invalid
+									</div>
+								</div>
 
 
-                                <div class="col-12">
-                                    <div class="text-center">
-                                        <p class="mb-0">Already have an account ? <a href="{{ route('syarat_ketentuan', "masuk") }}" class="text-warning">Sign in</a></p>
-                                    </div>
-                                </div>
+                                <div class="form-group mb-3">
+									<label for="whatsapp" class="mb-2">Whatsapp</label>
+									<input id="whatsapp" type="number" class="form-control" name="whatsapp" required>
+									<div class="invalid-feedback">
+										Your whatsapp is invalid
+									</div>
+								</div>
 
-                            </div>
+								<div class="form-group mb-3">
+									<label for="password" class="mb-2">Password</label>
+									<input id="password" type="password" class="form-control" name="password" required data-eye>
+									<div class="invalid-feedback">
+										Password is required
+									</div>
+								</div>
 
-                        </div>
-                    </div>
-                </div>
 
-            </div>
 
-        </div>
+								<div class="d-flex justify-content-center m-0 mt-4">
+									<button type="submit" class="btn btn-primary w-75">
+										Register
+									</button>
+								</div>
+								<div class="mt-4 text-center">
+									Already have an account? <a href="{{ route('login') }}" class="text-decoration-none text-primary">Login</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; {{date('Y')}} &mdash; Developed By <a href="https://muhamad-fahmi.github.io" class="text-primary text-decoration-none" target="_blank">Muhamad Fahmi</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-    </div>
-
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{ asset('cork/src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="{{asset('loginstyle/my-login.js')}}"></script>
 </body>
 </html>

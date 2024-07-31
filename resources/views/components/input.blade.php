@@ -8,7 +8,7 @@
             {{ str_replace(' ', '-', strtolower($field)) }}
         @endif"
         {{ $parentClass ?? '' }}>
-        <label for="{{ $field }}">{{ ucwords($field) }}</label>
+        <label for="{{ $field }}" class="mb-2">{{ ucwords($field) }}</label>
         <div class="input-group">
             <input type="{{ $type }}" class="form-control {{ $classAdd ?? '' }}" id="{{ str_replace($source_replace, $replace, strtolower($field)) }}" name="{{ strtolower(str_replace($source_replace, $replace, $field)) }}" placeholder="{{ ($type == 'search') ? 'Search' : 'Enter' }} {{ $field }}" aria-describedby="basic-addon2"
             @if (isset($value))
@@ -35,7 +35,7 @@
             {{ str_replace(' ', '-', strtolower($field)) }}
         @endif"
         {{ $parentClass ?? '' }}>
-        <label for="{{ $field }}">{{ ucwords($field) }}</label>
+        <label for="{{ $field }}" class="mb-2">{{ ucwords($field) }}</label>
         <input type="{{ $type }}" class="form-control {{ $classAdd ?? '' }}" placeholder="{{ ($type == 'search') ? 'Search' : 'Enter' }} {{ $field }}"
         @if (empty($noprops))
             id="{{ str_replace($source_replace, $replace, strtolower($field)) }}" name="{{ strtolower(str_replace($source_replace, $replace, $field)) }}"

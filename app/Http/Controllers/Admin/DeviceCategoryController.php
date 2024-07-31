@@ -14,13 +14,24 @@ class DeviceCategoryController extends Controller
     {
         $categories = DeviceCategory::orderBy('id', 'desc')->get();
 
-        return view('admin.device.category.index', compact('categories'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Categories', 'url' => ''],
+        ];
+
+        return view('admin.device.category.index', compact('categories', 'breadcrumbs'));
     }
 
     public function create()
     {
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Categories', 'url' => route('admin.device.category.manage')],
+            ['name' => 'Create Category', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
         $categories = DeviceCategory::orderBy('id', 'desc')->get(['id', 'name']);
-        return view('admin.device.category.create', compact('categories'));
+        return view('admin.device.category.create', compact('categories', 'breadcrumbs'));
     }
 
 
@@ -66,7 +77,13 @@ class DeviceCategoryController extends Controller
 
         $device_category = DeviceCategory::find($id);
 
-        return view('admin.device.category.edit', compact('device_category'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Categories', 'url' => route('admin.device.category.manage')],
+            ['name' => 'Edit Category', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('admin.device.category.edit', compact('device_category', 'breadcrumbs'));
     }
 
     public function update(Request $request, $id)

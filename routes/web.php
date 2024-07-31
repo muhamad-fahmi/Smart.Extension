@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/invoices/rejected', [HomeController::class, 'get_rejected'])->name('invoices.rejected');
 
-        Route::prefix('/device')->group(function () {
+        Route::prefix('/devices')->group(function () {
             Route::get('/manage', [DeviceController::class, 'index'])->name('device.manage');
             Route::get('/manage/{category_slug}', [DeviceController::class, 'show_by_category'])->name('device.show_by_category');
             Route::get('/create', [DeviceController::class, 'create'])->name('device.create');

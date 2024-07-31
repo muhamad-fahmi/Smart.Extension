@@ -1,70 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Sign In - Smart.Extension</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('cork/src/assets/img/logo-smart-extension.png') }}"/>
-    <link href="{{ asset('cork/css/light/loader.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/css/dark/loader.css') }}" rel="stylesheet" type="text/css" />
-    <script src="{{ asset('cork/loader.js') }}"></script>
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{{ asset('cork/src/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+        <meta charset="utf-8">
+        <meta name="author" content="Kodinger">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Login - {{ env('APP_NAME') }}</title>
+        <link rel="stylesheet" href="{{ asset('assets/landingpage/css/styles.css') }}">
 
-    <link href="{{ asset('cork/css/light/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/assets/css/light/authentication/auth-boxed.css') }}" rel="stylesheet" type="text/css" />
-
-    <link href="{{ asset('cork/css/dark/plugins.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('cork/src/assets/css/dark/authentication/auth-boxed.css') }}" rel="stylesheet" type="text/css" />
-    {!! ReCaptcha::htmlScriptTagJsApi() !!}
-    <!-- END GLOBAL MANDATORY STYLES -->
-
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+        <!-- Bootstrap icons-->
 </head>
-<body class="form">
 
-    <!-- BEGIN LOADER -->
-    <div id="load_screen"> <div class="loader"> <div class="loader-content">
-        <div class="spinner-grow align-self-center"></div>
-    </div></div></div>
-    <!--  END LOADER -->
+<body class="my-login-page">
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100 align-items-center">
+				<div class="card-wrapper">
+					<h2 class="text-gradient text-center fw-bolder mb-4">Smart.Extension</h2>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title text-center">Login</h4>
+							<form action="{{ route('login.post') }}" method="POST" class="my-login-validation" novalidate="">
+								@csrf
+								<div class="form-group mb-3">
+									<label for="email" class="mb-2">E-Mail Address</label>
+									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<div class="invalid-feedback">
+										Email is invalid
+									</div>
+								</div>
 
-    <div class="auth-container d-flex">
-
-        <div class="container mx-auto align-self-center">
-
-            <div class="row">
-
-                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center mx-auto">
-                    <div class="card mt-3 mb-3">
-                        <div class="card-body">
-
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-
-                                    <h2>Sign In</h2>
-                                    <p>Enter your email and password to login</p>
-
-                                </div>
-                                <form action="{{ route('login.post') }}" method="post">
-
-                                    @csrf
-
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Email</label>
-                                            <input name="email" type="email" class="form-control" placeholder="Enter Your Email">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="mb-4">
-                                            <label class="form-label">Password</label>
-                                            <input name="password" type="password" class="form-control" placeholder="Enter Your Password">
-                                        </div>
-                                    </div>
-
-                                    @if ($errors->any())
+								<div class="form-group">
+									<label for="password" class="mb-2">Password</label>
+									<input id="password" type="password" class="form-control" name="password" required data-eye>
+								    <div class="invalid-feedback">
+								    	Password is required
+							    	</div>
+								</div>
+								@if ($errors->any())
 										<div class="alert alert-danger ">
 											<ul>
 												@foreach ($errors->all() as $error)
@@ -72,53 +48,40 @@
 												@endforeach
 											</ul>
 										</div>
-								    @endif
-								    @if (session('success'))
-										<div class="alert alert-success alert-dismissible fade show border-0 mb-4">
+								@endif
+								@if (session('success'))
+										<div class="alert animate__animated alert-success alert-dismissible fade show">
 											{{ session('success') }}
-											 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
 										</div>
-								    @endif
-								    @if (session('error'))
-										<div class="alert alert-danger alert-dismissible fade show border-0 mb-4">
+								@endif
+								@if (session('error'))
+										<div class="alert animate__animated alert-danger alert-dismissible fade show">
 											{{ session('error') }}
-											 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><svg> ... </svg></button>
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
 										</div>
-								    @endif
-
-                                    {{-- {!! htmlFormSnippet() !!} --}}
-
-                                    <div class="col-12 mt-4">
-                                        <div class="mb-4">
-                                            <button type="submit" class="btn btn-primary w-100">SIGN IN</button>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-
-                                <div class="col-12">
-                                    <div class="text-center">
-                                        <p class="mb-0">Dont't have an account ? <a href="{{ route('register') }}" class="text-warning">Sign Up</a></p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{{ asset('cork/src/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-
-
+								@endif
+								<div class="d-flex justify-content-center m-0 mt-4">
+									<button type="submit" class="btn btn-primary w-75">
+										Login
+									</button>
+								</div>
+								<div class="mt-4 text-center">
+									Don't have an account? <a href="{{ route('register') }}" class="text-primary text-decoration-none">Create One</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						Copyright &copy; {{date('Y')}} &mdash; Developed By <a href="https://muhamad-fahmi.github.io" class="text-primary text-decoration-none" target="_blank">Muhamad Fahmi</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

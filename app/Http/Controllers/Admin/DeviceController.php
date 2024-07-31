@@ -17,7 +17,12 @@ class DeviceController extends Controller
     {
         $devices = Device::orderBy('id', 'desc')->get();
 
-        return view('admin.device.index', compact('devices'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Devices', 'url' => '']
+        ];
+
+        return view('admin.device.index', compact('devices', 'breadcrumbs'));
     }
 
     public function show_by_category($category_slug)
@@ -34,7 +39,13 @@ class DeviceController extends Controller
         $categories = DeviceCategory::orderBy('id', 'desc')->get(['id', 'name']);
         $sensors    = Sensor::orderBy('name')->get();
 
-        return view('admin.device.create', compact('categories', 'sensors'));
+        $breadcrumbs = [
+            ['name' => 'Home', 'url' => route('admin.dashboard')],
+            ['name' => 'Devices', 'url' => route('admin.device.manage')],
+            ['name' => 'Generate Devices', 'url' => ''], // No URL for the last breadcrumb
+        ];
+
+        return view('admin.device.create', compact('categories', 'sensors', 'breadcrumbs'));
     }
 
     public function store(Request $request)
@@ -72,7 +83,7 @@ class DeviceController extends Controller
         Device::where('id', $id)->update([
             'status' => true
         ]);
-        
+
         return redirect(route('admin.device.manage'))->with('success', 'Device data ativated successful');
     }
 

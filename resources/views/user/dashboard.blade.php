@@ -9,7 +9,7 @@
     Dashboard
 @endsection
 
-@section('pagenow')
+@section('page')
     Dashboard
 @endsection
 
@@ -17,16 +17,16 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                <a href="{{ route('customer.device.manage') }}">
-                    <div class="card border-0 mb-2">
+                <a href="{{ route('customer.device.manage') }}" class="text-decoration-none">
+                    <div class="card bg-light border-0 mb-2">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-3 d-flex align-items-center justify-content-center">
-                                    <h1 class="m-0 text-primary"><i class="fa-solid fa-house-laptop"></i></h1>
+                                    <h1 class="m-0 text-gradient"><i class="fa-solid fa-house-laptop "></i></h1>
                                 </div>
                                 <div class="col-9">
-                                    <h2 class="m-0"><strong>{{ $devices }}</strong></h2>
-                                    <p class="my-1">Active Devices</p>
+                                    <h2 class="m-0 text-primary"><strong>{{ $devices }}</strong></h2>
+                                    <p class="my-1 text-primary">My Active Devices</p>
                                 </div>
                             </div>
                         </div>
