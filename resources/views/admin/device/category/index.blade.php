@@ -62,7 +62,7 @@
                             <div class="modal-content bg-light">
                                 <div class="modal-header">
                                     <h5 class="modal-title text-black" id="deleteModal{{ $category->id }}Label">Confirmation</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="{{ route('admin.device.category.delete', $category->id) }}" method="post">
                                     @csrf
@@ -88,7 +88,7 @@
                                     </table>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-danger">Continue</button>
                                     </div>
                                 </form>

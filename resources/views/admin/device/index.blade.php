@@ -68,7 +68,7 @@
                             <div class="modal-content bg-light">
                                 <div class="modal-header">
                                     <h5 class="modal-title text-black" id="activateModal{{ $device->id }}Label">Confirmation</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="{{ route('admin.device.update', $device->id) }}" method="post">
                                     @csrf
@@ -99,7 +99,7 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-success">Continue</button>
                                     </div>
                                 </form>
@@ -115,7 +115,7 @@
                             <div class="modal-content bg-light">
                                 <div class="modal-header">
                                     <h5 class="modal-title text-black" id="deleteModal{{ $device->id }}Label">Confirmation</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="{{ route('admin.device.delete', $device->id) }}" method="post">
                                     @csrf
@@ -124,7 +124,7 @@
                                     <p class="my-3">Will you delete selected device item ? </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-danger">Continue</button>
                                     </div>
                                 </form>
