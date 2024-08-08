@@ -9,7 +9,6 @@ use App\Models\Admin\DeviceSensor;
 use App\Models\Admin\Sensor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class DeviceController extends Controller
 {

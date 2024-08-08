@@ -3,26 +3,14 @@
 use App\Http\Controllers\Admin\DeviceCategoryController;
 use App\Http\Controllers\Admin\DeviceController;
 use App\Http\Controllers\Admin\DeviceSensorController;
-use App\Http\Controllers\Admin\EmailBroadcastController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\NewsCategoryController;
-use App\Http\Controllers\Admin\NewsController;
-use App\Http\Controllers\Admin\Notification;
-use App\Http\Controllers\Admin\ProductCategoryController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\TermRuleController;
-use App\Http\Controllers\Admin\UndianController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\VoucherController;
-
 use App\Http\Controllers\User\HomeController as UserHomeController;
-use App\Http\Controllers\User\VoucherController as UserVoucherController;
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\User\MyDeviceController;
-use App\Http\Controllers\User\NewsController as UserNewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,18 +26,6 @@ use Illuminate\Support\Facades\Route;
 
 // INDEX
 Route::get('/', [PublicController::class, 'index']);
-// SYARAT KETENTUAN
-Route::get('/syarat-dan-ketentuan-undian/{type}', [PublicController::class, 'syarat_ketentuan'])->name('syarat_ketentuan');
-// BERITA CATEGORY
-Route::prefix('/news-category')->group(function () {
-    Route::get('/{category}', [PublicController::class, 'news_category_index'])->name('news.category.index');
-});
-// BERITA
-Route::prefix('/news')->group(function () {
-    Route::get('/', [PublicController::class, 'news_index'])->name('news.index');
-    Route::get('/{category}/{slug}', [PublicController::class, 'news_show'])->name('news.show');
-});
-
 // AUTH
 Route::post('/system/login', [AuthController::class, 'login'])->name('login.post');
 Route::get('/system/login', [AuthController::class, 'showlogin'])->name('login');

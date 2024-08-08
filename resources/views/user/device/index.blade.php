@@ -113,18 +113,21 @@
                                                         <div class="form-group">
                                                             <label for="action">Action</label><br>
 
-                                                            <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-text-toggle">
-                                                                <div class="input-checkbox">
-                                                                    <span class="switch-chk-label label-left">ON</span>
-                                                                    <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-text" name="scheduled_action[]" {{ $schedule->action == "ON" ? "checked" : "" }}>
-                                                                    <span class="switch-chk-label label-right">OFF</span>
-                                                                </div>
-                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input name="scheduled_action[]" class="form-check-input action-schedule-{{ $schedule->id }}" type="checkbox" id="inlineCheckbox1{{ $schedule->id }}" value="ON" {{ $schedule->action == "ON" ? "checked" : "" }}>
+                                                                <label class="form-check-label" for="inlineCheckbox1{{ $schedule->id }}">ON</label>
+                                                              </div>
+                                                              <div class="form-check form-check-inline">
+                                                                <input name="scheduled_action[]" class="form-check-input action-schedule-{{ $schedule->id }}" type="checkbox" id="inlineCheckbox2{{ $schedule->id }}" value="OFF" {{ $schedule->action == "OFF" ? "checked" : "" }}>
+                                                                <label class="form-check-label" for="inlineCheckbox2{{ $schedule->id }}">OFF</label>
+                                                              </div>
+
+
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="form-group">
-                                                            <label for="scheduled_time">Scheduled Time (ex: 12:00)</label>
+                                                            <label for="scheduled_time">Scheduled Time (format time: 24)</label>
                                                             <input type="text" name="scheduled_time[]" class="form-control" placeholder="Ex: 12:00" value="{{ $schedule->scheduled_time }}">
                                                         </div>
                                                     </div>
@@ -235,7 +238,7 @@
                                     </h2>
                                 </div>
 
-                                <div id="collapseOne{{ $device->id }}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="collapseOne{{ $device->id }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                     <div class="card-body small">
                                         <form action="{{ route('customer.device.update', $device->id) }}" method="post">
                                             @csrf
@@ -249,12 +252,12 @@
                                                             <label for="action" class="mb-2">Action</label><br>
 
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" name="scheduled_action[]" {{ $schedule->action == "ON" ? "checked" : "" }} id="inlineRadio1" value="option1">
-                                                                <label class="form-check-label" for="inlineRadio1">ON</label>
+                                                                <input name="scheduled_action[]" class="form-check-input action-schedule-{{ $schedule->id }}" type="checkbox" id="inlineCheckbox1{{ $schedule->id }}" value="ON" {{ $schedule->action == "ON" ? "checked" : "" }}>
+                                                                <label class="form-check-label" for="inlineCheckbox1{{ $schedule->id }}">ON</label>
                                                             </div>
                                                             <div class="form-check form-check-inline">
-                                                                <input class="form-check-input" type="checkbox" name="scheduled_action[]" {{ $schedule->action == "ON" ? "checked" : "" }} id="inlineRadio2" value="option2">
-                                                                <label class="form-check-label" for="inlineRadio2">OFF</label>
+                                                                <input name="scheduled_action[]" class="form-check-input action-schedule-{{ $schedule->id }}" type="checkbox" id="inlineCheckbox2{{ $schedule->id }}" value="OFF" {{ $schedule->action == "OFF" ? "checked" : "" }}>
+                                                                <label class="form-check-label" for="inlineCheckbox2{{ $schedule->id }}">OFF</label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -358,20 +361,12 @@
             responsive: true
         });
 
-        $('#btn_edit').click((e) => {
-            var id = $('#btn_edit').data('id');
-            var invoice = $('#btn_edit').data('invoice');
-            $('#updateModal').modal('show');
-            $('#formEditInv').attr('action', route('customer.invoice_submit.update', id));
-            $('#formEditInv #no_invoice').val(invoice);
-
-        })
-
-        $('#btn_delete').click((e) => {
-            var id = $('#btn_delete').data('id');
-            $('#deleteModal').modal('show');
-            $('#deleteModal form').attr('action', route('customer.invoice_submit.delete', id));
-
+        $('.form-check-input').on('change', function () {
+            var action_schedule = $(this).attr('class').split(' ')[1];
+            $(`.${action_schedule}`).each(function () {
+                $(this).prop('checked', false);
+            })
+            $(this).prop('checked', true);
         });
 
         $.ajaxSetup({
@@ -399,33 +394,20 @@
                         // dataType: 'json', // The type of data you're expecting back from the server
                         success: function(response) {
                             // This function will be called if the request is successful
-                            console.log('Success:', response);
                             $.LoadingOverlay('hide');
 
                             if (status === true) {
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil menyalakan lampu'
-                                });
+                                toastr['success']('Berhasil menyalakan lampu');
                             } else {
-
-                                Toast.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil mematikan lampu'
-                                });
-
+                                toastr['success']('Berhasil mematikan lampu');
                             }
-
 
                         },
                         error: function(xhr, status, error) {
                             // This function will be called if there is an error with the request
                             console.error('Error:', error);
 
-                            Toast.fire({
-                                icon: 'error',
-                                title: error
-                            });
+                            toastr['error'](error);
 
                         }
             });

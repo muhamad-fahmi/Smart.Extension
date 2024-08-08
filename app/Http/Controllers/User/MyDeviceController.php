@@ -174,6 +174,7 @@ class MyDeviceController extends Controller
 
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         try {
             UserDevice::where('id', $id)->update([
                 'name'      => $request->device_name
@@ -185,7 +186,7 @@ class MyDeviceController extends Controller
             for ($i = 0; $i < count($request->scheduled_time); $i++) {
                 UserDeviceSchedule::create([
                     'user_device_id' => $id,
-                    'action'         => !empty($request->scheduled_action[$i]) ? ($request->scheduled_action[$i] == 'on' ? "ON" : null) : "OFF",
+                    'action'         => $request->scheduled_action[$i] == 'ON' ? "ON" : "OFF",
                     'scheduled_time' => str_replace(['.', ','], ':', $request->scheduled_time[$i])
                 ]);
             }
@@ -193,6 +194,7 @@ class MyDeviceController extends Controller
 
             return redirect(route('customer.device.manage'))->with('success', 'Device name updated successful');
         } catch (Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', 'Update data is failed!');
         }
     }
