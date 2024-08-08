@@ -37,7 +37,7 @@
                         <div class="row mb-4">
                             <div class="col-sm-12">
                                 <label>Device Description</label>
-                                <textarea id="summernote" cols="30" rows="10" name="device_description" required>{!! $device_category->description !!}</textarea>
+                                <textarea id="summernote" cols="30" rows="10" name="device_description">{!! $device_category->description !!}</textarea>
                             </div>
                         </div>
 

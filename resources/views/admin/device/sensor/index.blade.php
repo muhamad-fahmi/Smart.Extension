@@ -77,10 +77,6 @@
                                             <td>{{ $sensor->name }}</td>
                                         </tr>
                                         <tr>
-                                            <th>Price</th>
-                                            <td>{{ $sensor->price }}</td>
-                                        </tr>
-                                        <tr>
                                             <td colspan="2">
                                                 <img src="{{ asset('assets/devices/images/'.$sensor->image) }}" alt="" class="w-100 rounded mb-4">
                                             </td>

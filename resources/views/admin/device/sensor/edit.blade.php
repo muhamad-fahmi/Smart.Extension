@@ -72,14 +72,14 @@
                             <div class="row mb-4">
                                 <div class="col-sm-12">
                                     <label>Sensor Description</label>
-                                    <textarea id="summernote" cols="30" rows="7" name="sensor_description" required>{!! $sensor->description !!}</textarea>
+                                    <textarea id="summernote" cols="30" rows="7" name="sensor_description">{!! $sensor->description !!}</textarea>
                                 </div>
                             </div>
 
                             <div class="row mb-4">
                                 <div class="col-sm-12">
                                     <label>Sensor Code</label>
-                                    <textarea id="summernote" class="code" cols="30" rows="7" name="sensor_code" required>{!! $sensor->code !!}</textarea>
+                                    <textarea id="summernote" class="code" cols="30" rows="7" name="sensor_code">{!! $sensor->code !!}</textarea>
                                 </div>
                             </div>
 

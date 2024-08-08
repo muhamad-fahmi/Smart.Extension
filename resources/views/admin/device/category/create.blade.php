@@ -37,7 +37,7 @@
                             <div class="row mb-4">
                                 <div class="col-sm-12">
                                     <label class="mb-2">Device Description</label>
-                                    <textarea id="summernote" cols="30" rows="10" name="device_description" class="form-control" required></textarea>
+                                    <textarea id="summernote" cols="30" rows="10" name="device_description" class="form-control"></textarea>
                                 </div>
                             </div>
 
