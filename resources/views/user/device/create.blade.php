@@ -51,18 +51,19 @@
                                     <div class="form-group">
                                         <label for="action">Action</label><br>
 
-                                        <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-text-toggle">
-                                            <div class="input-checkbox">
-                                                <span class="switch-chk-label label-left">ON</span>
-                                                <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-text" name="scheduled_action[]">
-                                                <span class="switch-chk-label label-right">OFF</span>
-                                            </div>
-                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input name="scheduled_action[]" class="form-check-input action-schedule-1" type="checkbox" id="inlineCheckbox1" value="ON">
+                                            <label class="form-check-label" for="inlineCheckbox1">ON</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                            <input name="scheduled_action[]" class="form-check-input action-schedule-1" type="checkbox" id="inlineCheckbox2" value="OFF">
+                                            <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                          </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="scheduled_time">Scheduled Time (ex: 12:00)</label>
+                                        <label for="scheduled_time">Scheduled Time (format time: 24)</label>
                                         <input type="text" name="scheduled_time[]" class="form-control" placeholder="Ex: 12:00">
                                     </div>
                                 </div>
@@ -73,18 +74,19 @@
                                     <div class="form-group">
                                         <label for="action">Action</label><br>
 
-                                        <div class="switch form-switch-custom switch-inline form-switch-primary form-switch-custom inner-text-toggle">
-                                            <div class="input-checkbox">
-                                                <span class="switch-chk-label label-left">ON</span>
-                                                <input class="switch-input" type="checkbox" role="switch" id="form-custom-switch-inner-text" name="scheduled_action[]">
-                                                <span class="switch-chk-label label-right">OFF</span>
-                                            </div>
-                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input name="scheduled_action[]" class="form-check-input action-schedule-2" type="checkbox" id="inlineCheckbox1" value="ON">
+                                            <label class="form-check-label" for="inlineCheckbox1">ON</label>
+                                          </div>
+                                          <div class="form-check form-check-inline">
+                                            <input name="scheduled_action[]" class="form-check-input action-schedule-2" type="checkbox" id="inlineCheckbox2" value="OFF">
+                                            <label class="form-check-label" for="inlineCheckbox2">OFF</label>
+                                          </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="scheduled_time">Scheduled Time (ex: 14:00)</label>
+                                        <label for="scheduled_time">Scheduled Time (format time: 24)</label>
                                         <input type="text" name="scheduled_time[]" class="form-control" placeholder="Ex: 14:00">
                                     </div>
                                 </div>
@@ -116,6 +118,14 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('.form-check-input').on('change', function () {
+                var action_schedule = $(this).attr('class').split(' ')[1];
+                $(`.${action_schedule}`).each(function () {
+                    $(this).prop('checked', false);
+                })
+                $(this).prop('checked', true);
             });
 
             $( '.select2' ).select2( {

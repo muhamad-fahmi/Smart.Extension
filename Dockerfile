@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libzip-dev \
     zip \
-    unzip
+    unzip \
+    mosquitto-clients
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql zip exif pcntl gd

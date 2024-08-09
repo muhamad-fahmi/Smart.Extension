@@ -38,7 +38,8 @@ class PublishMQTTMessage implements ShouldQueue
             Log::info("Starting MQTT publish for topic: {$this->topic} with message: {$this->message}");
 
 
-            $command = '/opt/homebrew/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$this->topic.'" -m "'.$this->message.'"';
+            $command = '/usr/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$this->topic.'" -m "'.$this->message.'"';
+            // $command = '/opt/homebrew/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$this->topic.'" -m "'.$this->message.'"';
 
             $device_id = explode('/', $this->topic)[0];
             $device = Device::where('device_id', $device_id)->first();

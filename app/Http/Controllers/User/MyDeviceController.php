@@ -107,10 +107,11 @@ class MyDeviceController extends Controller
                     for ($i = 0; $i < count($request->scheduled_time); $i++) {
                         UserDeviceSchedule::create([
                             'user_device_id' => $id_user_device,
-                            'action'         => !empty($request->scheduled_action[$i]) ? ($request->scheduled_action[$i] == 'on' ? "ON" : null) : "OFF",
+                            'action'         => $request->scheduled_action[$i] == 'ON' ? "ON" : "OFF",
                             'scheduled_time' => str_replace(['.', ','], ':', $request->scheduled_time[$i])
                         ]);
                     }
+                    
                 }
 
                 return redirect(route('customer.device.manage'))->with('success', 'User device created successful');
@@ -247,7 +248,8 @@ class MyDeviceController extends Controller
         try {
 
 
-            $command = '/opt/homebrew/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic.'" -m "'.$message.'"';
+            $command = '/usr/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic.'" -m "'.$message.'"';
+            // $command = '/opt/homebrew/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic.'" -m "'.$message.'"';
             $process = Process::fromShellCommandline($command);
             $process->run();
 
