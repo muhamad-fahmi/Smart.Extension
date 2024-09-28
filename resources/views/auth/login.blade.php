@@ -50,19 +50,13 @@
 										</div>
 								@endif
 								@if (session('success'))
-										<div class="alert animate__animated alert-success alert-dismissible fade show">
+										<div class="alert animate__animated alert-success mt-4 fade show">
 											{{ session('success') }}
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
 										</div>
 								@endif
 								@if (session('error'))
-										<div class="alert animate__animated alert-danger alert-dismissible fade show">
+										<div class="alert animate__animated alert-danger mt-4 fade show">
 											{{ session('error') }}
-											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
 										</div>
 								@endif
 								<div class="d-flex justify-content-center m-0 mt-4">

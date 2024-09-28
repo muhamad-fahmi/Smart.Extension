@@ -91,6 +91,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/show/{device_id}', [MyDeviceController::class, 'show_device'])->name('device.show');
             Route::get('/sensor/{device_id}', [MyDeviceController::class, 'sub'])->name('device.sub');
             Route::post('/sensor/{device_id}/{switch}', [MyDeviceController::class, 'pub'])->name('device.pub');
+
+
+            Route::post('/reset/{device_id}', [MyDeviceController::class, 'reset'])->name('device.reset');
         });
 
     });

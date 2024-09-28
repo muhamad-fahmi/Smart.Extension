@@ -164,7 +164,43 @@
         </div>
     </div>
 
+    <div class="row mt-4">
+        <div class="col-12 ">
 
+            <div class="card card-body alert-danger border-danger">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalResetWifi">
+                    <i class="fas fa-wifi mr-3"></i> Reset Wi-Fi Connection
+                </button>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="modalResetWifi" tabindex="-1" aria-labelledby="modalResetWifiLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reset Wi-Fi</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <p class="my-1">Will you reset the Wi-Fi connection?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <form action="{{ route('customer.device.reset', $device->device_id) }}" method="post">
+                            @csrf
+
+                            <button type="submit" class="btn btn-primary">Continue</button>
+                        </form>
+
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 @endsection
@@ -263,13 +299,13 @@
 
             function onMessageArrived(message) {
                 if (message.destinationName === mqttTopicT) {
-                    // console.log(`${message.destinationName} : ${message.payloadString}`);
+                    console.log(`${message.destinationName} : ${message.payloadString}`);
                     $('#temp_value').text(message.payloadString);
                     updateChart('chartT', message.payloadString);
                     $('.dht-t-result').show();
                     $('.loader-t').removeClass('d-flex').addClass('d-none').hide();
                 } else if (message.destinationName === mqttTopicH) {
-                    // console.log(`${message.destinationName} : ${message.payloadString}`);
+                    console.log(`${message.destinationName} : ${message.payloadString}`);
                     $('#hum_value').text(message.payloadString);
                     updateChart('chartH', message.payloadString);
                     $('.dht-h-result').show();

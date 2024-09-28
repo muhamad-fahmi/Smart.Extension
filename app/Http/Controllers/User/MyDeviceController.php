@@ -111,7 +111,7 @@ class MyDeviceController extends Controller
                             'scheduled_time' => str_replace(['.', ','], ':', $request->scheduled_time[$i])
                         ]);
                     }
-                    
+
                 }
 
                 return redirect(route('customer.device.manage'))->with('success', 'User device created successful');
@@ -230,6 +230,7 @@ class MyDeviceController extends Controller
 
     public function pub($device_id, $switch) {
 
+        date_default_timezone_set('Asia/Jakarta');
         ini_set('max_execution_time', 300);
         // $logger = new SimpleLogger(LogLevel::INFO);
 
@@ -275,10 +276,61 @@ class MyDeviceController extends Controller
             ]);
 
 
-        } catch (\Excetion $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => false
             ]);
+        }
+
+
+    }
+
+    public function reset(Request $request, $device_id) {
+        date_default_timezone_set('Asia/Jakarta');
+        ini_set('max_execution_time', 300);
+        // $logger = new SimpleLogger(LogLevel::INFO);
+
+        $device = Device::where('device_id', $device_id)->first();
+
+        if (!empty($device)) {
+
+            $message = "RESET";
+
+            $topic = $device_id . '/reset_wifi';
+
+            try {
+
+
+                $command = '/usr/bin/mosquitto_pub -h '.env('MQTT_HOST').' -p '.env('MQTT_PORT').' -u '.env('MQTT_AUTH_USERNAME').' -P '.env('MQTT_AUTH_PASSWORD').' -t "'.$topic.'" -m "'.$message.'"';
+                // $command = '/opt/homebrew/bin/mosquitto_pub -h ' . env('MQTT_HOST') . ' -p ' . env('MQTT_PORT') . ' -u ' . env('MQTT_AUTH_USERNAME') . ' -P ' . env('MQTT_AUTH_PASSWORD') . ' -t "' . $topic . '" -m "' . $message . '"';
+                $process = Process::fromShellCommandline($command);
+                $process->run();
+
+                // executes after the command finishes
+                if (!$process->isSuccessful()) {
+                    return response()->json([
+                        'status' => 'error',
+                        'error'  => $process->getErrorOutput()
+                    ], 500);
+                }
+
+
+
+                // dd($message);
+
+                UserDevice::where('device_id', $device->id)->update([
+                    'last_reset' => date('d-M-Y H:i:s')
+                ]);
+
+                return redirect()->route('customer.device.manage')->with('success', $device->device_id . "'s Wi-Fi connection has been successfully reset");
+
+
+            }
+            catch (\Exception $e) {
+                return redirect()->route('customer.device.manage')->with('error', $device->device_id . "'s Wi-Fi connection hfailed to reset");
+            }
+        } else {
+            return redirect()->route('customer.device.manage')->with('error', "Device not found!");
         }
 
 
