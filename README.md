@@ -22,7 +22,7 @@
 
 1. Clone repositori ini ke komputer Anda:
     ```sh
-    git clone https://github.com/username/Smart.Extension.git
+    git clone https://github.com/muhamad-fahmi/Smart.Extension.git
     ```
 2. Navigasi ke direktori proyek:
     ```sh
