@@ -50,6 +50,12 @@
 
 <img width="440" alt="image" src="https://github.com/user-attachments/assets/e3bf77af-5448-4215-9e94-1aa27e3b65c5">
 
+## Artikel Ilmiah
+[Artikel Ilmiah - Muhamad Fahmi 202043501341.pdf](https://github.com/user-attachments/files/17408838/Artikel.Ilmiah.-.Muhamad.Fahmi.202043501341.pdf)
+
+## Manual Book
+[MANUAL BOOK.pdf](https://github.com/user-attachments/files/17408877/MANUAL.BOOK.pdf)
+
 <!-- 
 ## Kontribusi
 
