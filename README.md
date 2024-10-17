@@ -42,10 +42,11 @@
 2. Buka aplikasi mobile atau web yang telah disediakan di folder `app`.
 3. Gunakan antarmuka aplikasi untuk menyalakan/mematikan lampu dan memantau suhu serta kelembaban.
 
-<!-- ## Diagram Koneksi
+## Diagram Koneksi
 
-![Diagram Koneksi](diagram_koneksi.png)
+<img width="527" alt="image" src="https://github.com/user-attachments/assets/a29daf4d-cef3-4da1-89d9-078665dd1291">
 
+<!-- 
 ## Kontribusi
 
 Kami menerima kontribusi dari siapa saja yang tertarik untuk meningkatkan proyek ini. Untuk berkontribusi, silakan ikuti langkah-langkah berikut:
